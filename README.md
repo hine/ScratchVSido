@@ -20,7 +20,7 @@ Scratchとの接続に、[logiblocs](https://scratch.mit.edu/users/logiblocs/ "l
 
 ## 使い方
 まずScratch1.4を立ち上げてから、同じマシンで、  
-$ ruby scratch2vsido.rb [シリアルポートデバイス] [Scratchが起動しているマシンのIPアドレス]
+$ ruby scratch2vsido.rb [シリアルポートデバイス] [Scratchが起動しているマシンのIPアドレス]  
 で起動してください。  
 通常は、IPアドレスは省略可能です。
 
