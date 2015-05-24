@@ -24,6 +24,25 @@ $ ruby scratch2vsido.rb [シリアルポートデバイス] [Scratchが起動し
 で起動してください。  
 通常は、IPアドレスは省略可能です。
 
+## Scratchでの使い方
+[Scratchのサンプル](https://scratch.mit.edu/projects/63929748/#editor "Scratch Sample")を参照してください。  
+
+* サーボ角度のコントロール  
+まずはreset_anglesのメッセージを送り、その後、変数sidにサーボモーターのIDを、変数angleに目的角度を設定、変数timeに変化にかかる時間を設定。
+その後set_angleメッセージを送ります。すぐにsidなどを変更すると誤動作することがあるので、0秒の待つを入れてください。
+まとめて変化させたいサーボを全て登録し、その後、execute_anglesのメッセージを送れば実際にサーボモーターに命令が送られます。  
+
+* IK(Inverse kinematicsによる逆運動制御)のコントロール  
+まずはreset_iksのメッセージを送り、その後、変数kidにIK制御のIDを、変数ikx、iky、ikzに目的位置を設定。
+その後set_ikメッセージを送ります。すぐにkidなどを変更すると誤動作することがあるので、0秒の待つを入れてください。
+まとめて変化させたいIK制御を全て登録し、その後、execute_iksのメッセージを送れば実際にサーボモーターに命令が送られます。  
+
+* 歩行のコントロール  
+変数speedに前後方向の移動量を、変数turnに左右の旋回量を設定。
+その後walkメッセージを送れば実際にサーボモーターに命令が送られます。  
+
+詳しくは[V-Sido Developerサイトの技術資料](https://v-sido-developer.com/learning/connect/connect-rc/ "V-Sido Developerサイトの技術資料")を見てください。
+
 ## 免責事項
 一応。  
 
