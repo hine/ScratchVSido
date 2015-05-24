@@ -8,7 +8,6 @@ require 'rubyserial'
 # ScratchのRemote Sensor Connectionsプロトコルのライブラリ読み込み
 require_relative "scratchrsc"
 # http://scratchforums.blob8108.net/forums/viewtopic.php?id=113658
-# ただし、掲示されているスクリプトを
 
 # シリアル等の外部とのデータのやりとりについて1バイトで行う
 Encoding.default_external = 'ASCII-8BIT'
