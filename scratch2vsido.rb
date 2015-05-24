@@ -254,11 +254,11 @@ class VsidoRSC < RSCWatcher
   def on_broadcast(name)
     # 本来はライブラリの__on_broadcastで行う処理だが、通ってないみたいなのでここで処理
     method = "broadcast_#{name}"
-		if self.respond_to? method
-			self.send method
-		else
+    if self.respond_to? method
+      self.send method
+    else
       puts "Scratch: broadcast #{name}"
-		end
+    end
   end
 
   private
