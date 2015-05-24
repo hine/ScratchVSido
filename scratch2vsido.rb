@@ -199,7 +199,7 @@ class VsidoRSC < RSCWatcher
       end
       puts "S2V: #{name} assigned #{value}"
     elsif
-      "Scratch: #{name} assigned #{value}"
+      puts "Scratch: #{name} assigned #{value}"
     end
   end
 
