@@ -203,6 +203,17 @@ class VsidoRSC < RSCWatcher
     end
   end
 
+  # ブロードキャストメッセージが来た場合の処理
+  def on_broadcast(name)
+    # 本来はライブラリの__on_broadcastで行う処理だが、どうやらそこは通らないようなのでここで処理する
+    method = "broadcast_#{name}"
+    if self.respond_to? method
+      self.send method
+    else
+      puts "Scratch: broadcast #{name}"
+    end
+  end
+
   # 以下ブロードキャストメッセージに対する処理
   # ブロードキャスト: reset_angles
   def broadcast_reset_angles
@@ -248,17 +259,6 @@ class VsidoRSC < RSCWatcher
   # ブロードキャスト: stop
   def broadcast_stop
     # 未実装
-  end
-
-  # ブロードキャストメッセージが来た場合の処理
-  def on_broadcast(name)
-    # 本来はライブラリの__on_broadcastで行う処理だが、通ってないみたいなのでここで処理
-    method = "broadcast_#{name}"
-    if self.respond_to? method
-      self.send method
-    else
-      puts "Scratch: broadcast #{name}"
-    end
   end
 
   private
