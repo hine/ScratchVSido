@@ -114,18 +114,21 @@ class ScratchRemoteSensor(object):
                         if len(self._receive_buffer) == 4 + message_len:
                             message = self._receive_buffer[4:].decode('utf-8')
                             self._receive_buffer = b''
-                            if 'broadcast' in message:
-                                print('broadcast:', message)
-                            if 'sensor-update' in message:
-                                print('sensor-update:', message)
+                            if message.startswith('broadcast'):
+                                print('broadcast:', message.replace('broadcast ', '', 1))
+                            if message.startswith('sensor-update'):
+                                print('sensor-update:', message.replace('sensor-update ', '', 1))
         except:
             raise
 
     def send_broadcast(self, message):
-        pass
+        message_string = 'broadcast "' + message + '"'
+        self.sock.sendall(len(message_string).to_bytes(4, byteorder='big') + message_string.encode('utf-8'))
 
     def send_sensor_update(self, name, value):
-        pass
+        message_string = 'sensor-update "' + name + '" ' + str(value)
+        print(message_string)
+        self.sock.sendall(len(message_string).to_bytes(4, byteorder='big') + message_string.encode('utf-8'))
 
 
 #ここからTornadeでのWeb/WebSocketサーバーに関する定義
@@ -213,6 +216,8 @@ if __name__ == '__main__':
 
     srs = ScratchRemoteSensor()
     srs.connect()
+    srs.send_broadcast('hit')
+    srs.send_sensor_update('test', 100)
 
     # Tornado起動
     print('Starting Web/WebSocket Server...', end='')
