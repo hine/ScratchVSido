@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="{{ static_url("style.css") }}"/>
+  </head>
+  <body>
+    <p>
+      <div id="robot_connection" style="margin: 0 auto;">
+        ロボットの電源を入れ、接続しているシリアルポートを調べ、以下に入力した後、ロボットに接続する。<br />
+        シリアルポート:
+        <input id="serial_port" type="text" class="input_text" style="width: 300px;">
+        <input id="robot_connect" class="button" type="button" value="ロボット接続" onclick="OnButtonClick(this)">
+        <input id="robot_disconnect" class="button_disable" type="button" value="ロボット切断" onclick="OnButtonClick(this)" disabled>
+      </div>
+    </p>
+    <p>
+      <div id="scratch_json" style="margin: 0 auto;">
+        Scratchコマンド定義のJSONデータ:<br />
+        <textarea  id="json_data" class="input_textarea" cols=80 rows=10 onchange="OnJsonChange()" onkeyup="OnJsonChange()"></textarea><br />
+        <input id="save_json" class="button_disable" type="button" value="JSON送信/保存" onclick="OnButtonClick(this)" disabled>
+      </div>
+    </p>
+    <p>
+      <div id="scrach_connection" style="margin: 0 auto;">
+        Scratchを立ち上げ後、遠隔センサーをOnにしてからScratchに接続する。<br />
+        <input id="scratch_connect" class="button" type="button" value="Scratch接続" onclick="OnButtonClick(this)">
+        <input id="scratch_disconnect" class="button_disable" type="button" value="Scratch切断" onclick="OnButtonClick(this)" disabled>
+      </div>
+    </p>
+    <div id="received_message" class="text" style="margin-top: 10px;">
+      sent_data:<div id="sent_command"></div><br />
+      received_data:<div id="received_data"></div><br />
+    </div>
+    <script src="{{ static_url("main.js") }}"></script>
+  </body>
+</html>
