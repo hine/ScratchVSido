@@ -12,6 +12,7 @@ ws.onmessage = function (evt) {
       document.getElementById('serial_port').disabled = true;
       ButtonDisable(document.getElementById('robot_connect'));
       ButtonEnable(document.getElementById('robot_disconnect'));
+      alert("ロボットに接続されました。");
     }
     if (obj["message"] == "robot_cannot_connect") {
       alert("ロボットに接続出来ませんでした。シリアルポートの確認をしてください。");
@@ -28,6 +29,7 @@ ws.onmessage = function (evt) {
     if (obj["message"] == "scratch_connected") {
       ButtonDisable(document.getElementById('scratch_connect'));
       ButtonEnable(document.getElementById('scratch_disconnect'));
+      alert("Scratchに接続されました");
     }
     if (obj["message"] == "scratch_cannot_connect") {
       alert("Scratchに接続出来ませんでした。Scratchの起動と遠隔センサーの設定の確認をしてください。");
