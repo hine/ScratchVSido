@@ -9,17 +9,32 @@ ws.onmessage = function (evt) {
     var obj = JSON.parse(evt.data);
     console.log(obj["message"])
     if (obj["message"] == "robot_connected") {
-      OnRobotConnected();
+      document.getElementById('serial_port').disabled = true;
+      ButtonDisable(document.getElementById('robot_connect'));
+      ButtonEnable(document.getElementById('robot_disconnect'));
     }
     if (obj["message"] == "robot_cannot_connect") {
       alert("ロボットに接続出来ませんでした。シリアルポートの確認をしてください。");
     }
     if (obj["message"] == "robot_disconnected") {
-      OnRobotDisconnected();
+      document.getElementById('serial_port').disabled = false;
+      ButtonEnable(document.getElementById('robot_connect'));
+      ButtonDisable(document.getElementById('robot_disconnect'));
     }
     if (obj["message"] == "scratch_command") {
       document.getElementById('json_data').value = JSON.stringify(obj["json_data"], null, "  ");
       ButtonDisable(document.getElementById('save_json'));
+    }
+    if (obj["message"] == "scratch_connected") {
+      ButtonDisable(document.getElementById('scratch_connect'));
+      ButtonEnable(document.getElementById('scratch_disconnect'));
+    }
+    if (obj["message"] == "scratch_cannot_connect") {
+      alert("Scratchに接続出来ませんでした。Scratchの起動と遠隔センサーの設定の確認をしてください。");
+    }
+    if (obj["message"] == "scratch_disconnected") {
+      ButtonEnable(document.getElementById('scratch_connect'));
+      ButtonDisable(document.getElementById('scratch_disconnect'));
     }
   } catch(e) {
   }
@@ -46,10 +61,10 @@ function OnButtonClick(button) {
     }
   }
   if (button.id == "scratch_connect") {
-
+    ws.send(JSON.stringify({command: "scratch_connect"}));
   }
   if (button.id == "scratch_disconnect") {
-
+    ws.send(JSON.stringify({command: "scratch_disconnect"}));
   }
   console.log(button.id)
 }
@@ -66,18 +81,4 @@ function ButtonEnable(button) {
 function ButtonDisable(button) {
   button.disabled = true;
   button.className = "button_disable";
-}
-
-function OnRobotConnected() {
-  console.log("robo_con")
-  document.getElementById('serial_port').disabled = true;
-  ButtonDisable(document.getElementById('robot_connect'));
-  ButtonEnable(document.getElementById('robot_disconnect'));
-}
-
-function OnRobotDisconnected() {
-  console.log("robo_discon")
-  document.getElementById('serial_port').disabled = false;
-  ButtonEnable(document.getElementById('robot_connect'));
-  ButtonDisable(document.getElementById('robot_disconnect'));
 }

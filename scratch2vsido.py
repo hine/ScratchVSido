@@ -26,7 +26,20 @@ class MotionData(object):
     ロボットのモーションデータに関するデータの保持ならびにやりとりを行う
     '''
     def __init__(self):
-        pass
+        self.motion_data = {}
+
+    def set_motion_data_set(self, json_data):
+        for data in json_data['data_set']:
+            self.motion_data[data['name']] = {'type': data['type'], 'data': data['data']}
+
+    def get_motion_list(self):
+        return self.motion_data.keys()
+
+    def get_motion_data(self, name):
+        if name in self.motion_data.keys():
+            return self.motion_data[name]
+        else:
+            return {}
 
     def read_json(self, json_path):
         ''' jsonの読み込み '''
@@ -69,6 +82,7 @@ class ScratchRemoteSensor(object):
     SCRATCH_PORT = 42001
 
     def __init__(self, sock=None):
+        socket.setdefaulttimeout(1)
         if sock is None:
             self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         else:
@@ -89,6 +103,20 @@ class ScratchRemoteSensor(object):
         self._connected = True
         self._start_receiver()
 
+    def disconnect(self):
+        print('Scratch disconnecting...', end='')
+        self._stop_receiver()
+        try:
+            self.sock.shutdown(socket.SHUT_RDWR)
+        except:
+            raise
+        try:
+            self.sock.close()
+        except:
+            raise
+        self._connected = False
+        print('done')
+
     def _start_receiver(self):
         ''' 受信スレッドの立ち上げ '''
         self._receiver_alive = True
@@ -105,7 +133,11 @@ class ScratchRemoteSensor(object):
         ''' 受信スレッドの処理 '''
         try:
             while self._receiver_alive:
-                data = self.sock.recv(1)
+                data =b''
+                try:
+                    data = self.sock.recv(1)
+                except socket.timeout:
+                    pass
                 if len(data) > 0:
                     self._receive_buffer += data
                     #self._receive_buffer.append(data)
@@ -113,22 +145,41 @@ class ScratchRemoteSensor(object):
                         message_len = int.from_bytes(self._receive_buffer[:4], byteorder='big')
                         if len(self._receive_buffer) == 4 + message_len:
                             message = self._receive_buffer[4:].decode('utf-8')
-                            self._receive_buffer = b''
                             if message.startswith('broadcast'):
-                                print('broadcast:', message.replace('broadcast ', '', 1))
+                                command = message.replace('broadcast ', '', 1).replace('"', '', 2)
+                                print('broadcast:', command)
+                                # 以下実際のロボットに接続している場合のみ
+                                if command in md.get_motion_list():
+                                    motion = md.get_motion_data(command)
+                                    motion_type = motion['type']
+                                    motion_data = motion['data']
+                                    print(motion_data)
+                                    if motion_type == 'angle':
+                                        vc.set_servo_angle(motion_data, 2)
+                                    if motion_type == 'ik':
+                                        vc.set_ik(motion_data)
+                                    if motion_type == 'gpio':
+                                        vc.set_vid_io_mode([{'iid': 7, 'mode': 1}])
+                                        vc.set_gpio_config(motion_data)
                             if message.startswith('sensor-update'):
                                 print('sensor-update:', message.replace('sensor-update ', '', 1))
+                            self._receive_buffer = b''
         except:
             raise
 
     def send_broadcast(self, message):
-        message_string = 'broadcast "' + message + '"'
-        self.sock.sendall(len(message_string).to_bytes(4, byteorder='big') + message_string.encode('utf-8'))
+        '''
+        broadcastメッセージを投げる
+
+        メッセージに登録がない場合、日本語だと文字化けする可能性あり
+        '''
+        message_data = ('broadcast "' + message + '"').encode('utf-8')
+        print(len(message_data).to_bytes(4, byteorder='big') + message_data)
+        self.sock.sendall(len(message_data).to_bytes(4, byteorder='big') + message_data)
 
     def send_sensor_update(self, name, value):
-        message_string = 'sensor-update "' + name + '" ' + str(value)
-        print(message_string)
-        self.sock.sendall(len(message_string).to_bytes(4, byteorder='big') + message_string.encode('utf-8'))
+        message_data = ('sensor-update "' + name + '" ' + str(value)).encode('utf-8')
+        self.sock.sendall(len(message_data).to_bytes(4, byteorder='big') + message_data)
 
 
 #ここからTornadeでのWeb/WebSocketサーバーに関する定義
@@ -154,13 +205,18 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         self.callback = tornado.ioloop.PeriodicCallback(self._send_message, 50)
         self.callback.start()
         print('WebSocket opened')
-        self.write_message(json.dumps({'message': 'scratch_command', 'json_data': md.read_json('scratch_command.json')}))
+        motion_data = md.read_json('scratch_command.json')
+        md.set_motion_data_set(motion_data)
+        self.write_message(json.dumps({'message': 'scratch_command', 'json_data': motion_data}))
 
     def check_origin(self, origin):
         ''' アクセス元チェックをしないように上書き '''
         return True
 
     def on_message(self, message):
+        global md
+        global srs
+        global vc
         received_data = json.loads(message)
         print('got message:', received_data['command'])
         if received_data['command'] == 'robot_connect':
@@ -175,14 +231,37 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                 self.write_message(json.dumps({'message': 'robot_connected'}))
                 print('done')
         elif received_data['command'] == 'robot_disconnect':
-            # V-Sido CONNECTに接続
+            print('Disconnecting from V-Sido CONNECT...', end='')
+            # V-Sido CONNECTから切断
             vc.disconnect()
             self.write_message(json.dumps({'message': 'robot_disconnected'}))
+            print('done')
         elif received_data['command'] == 'set_scratch_command':
+            print('Renewaling/Saving Motion Data...', end='')
             # JSONデータを保存する
             json_data = received_data['json_data']
             md.write_json('scratch_command.json', json_data)
             self.write_message(json.dumps({'message': 'scratch_command', 'json_data': json_data}))
+            print('done')
+        elif received_data['command'] == 'scratch_connect':
+            # Scratchに接続
+            print('Connecting to Scratch...', end='')
+            try:
+                srs.connect()
+            except:
+                self.write_message(json.dumps({'message': 'scratch_cannot_connect'}))
+                print('fail')
+                raise
+            else:
+                self.write_message(json.dumps({'message': 'scratch_connected'}))
+                print('done')
+        elif received_data['command'] == 'scratch_disconnect':
+            # Scratcから切断
+            print('Disconnecting from Scratch...', end='')
+            srs.disconnect()
+            srs = ScratchRemoteSensor()
+            self.write_message(json.dumps({'message': 'scratch_disconnected'}))
+            print('done')
 
     def _send_message(self):
         pass
@@ -214,10 +293,8 @@ if __name__ == '__main__':
     #print(motion)
     #md.write_json('scratch_command.json', md.data)
 
+    # Scratch接続のためのインスタンス生成
     srs = ScratchRemoteSensor()
-    srs.connect()
-    srs.send_broadcast('hit')
-    srs.send_sensor_update('test', 100)
 
     # Tornado起動
     print('Starting Web/WebSocket Server...', end='')
