@@ -11,19 +11,18 @@ import os
 import sys
 import time
 import json
-import socket
 import threading
 
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
 
+import scratch
 import vsido
 
 
 class MotionData(object):
-    '''
-    ロボットのモーションデータに関するデータの保持ならびにやりとりを行う
+    '''ロボットのモーションデータに関するデータの保持ならびにやりとりを行う
     '''
     def __init__(self):
         self.motion_data = {}
@@ -73,113 +72,26 @@ class MotionData(object):
                 fp.close()
 
 
-#ここからScratchとのソケット通信に関する定義
-class ScratchRemoteSensor(object):
+class Receiver(object):
+    '''Scratchからの受信データの処理
     '''
-    '''
+    def broadcast_handler(message):
+        if message in md.get_motion_list():
+            motion = md.get_motion_data(message)
+            motion_type = motion['type']
+            motion_data = motion['data']
+            print(motion_data)
+            if motion_type == 'angle':
+                vc.set_servo_angle(motion_data, 2)
+            if motion_type == 'ik':
+                vc.set_ik(motion_data)
+            if motion_type == 'gpio':
+                vc.set_vid_io_mode([{'iid': 7, 'mode': 1}])
+                vc.set_gpio_config(motion_data)
 
-    SCRATCH_HOST = '127.0.0.1'
-    SCRATCH_PORT = 42001
-
-    def __init__(self, sock=None):
-        socket.setdefaulttimeout(1)
-        if sock is None:
-            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        else:
-            self.sock = sock
-
-        # 受信用のバッファ用意
-        self._receive_buffer = b''
-
-    def connect(self, host=None, port=None):
-        if host is None:
-            host = ScratchRemoteSensor.SCRATCH_HOST
-        if port is None:
-            port = ScratchRemoteSensor.SCRATCH_PORT
-        try:
-            self.sock.connect((host, port))
-        except:
-            raise
-        self._connected = True
-        self._start_receiver()
-
-    def disconnect(self):
-        print('Scratch disconnecting...', end='')
-        self._stop_receiver()
-        try:
-            self.sock.shutdown(socket.SHUT_RDWR)
-        except:
-            raise
-        try:
-            self.sock.close()
-        except:
-            raise
-        self._connected = False
-        print('done')
-
-    def _start_receiver(self):
-        ''' 受信スレッドの立ち上げ '''
-        self._receiver_alive = True
-        self._receiver_thread = threading.Thread(target=self._receiver)
-        self._receiver_thread.setDaemon(True)
-        self._receiver_thread.start()
-
-    def _stop_receiver(self):
-        ''' 受信スレッドの停止 '''
-        self._receiver_alive = False
-        self._receiver_thread.join()
-
-    def _receiver(self):
-        ''' 受信スレッドの処理 '''
-        try:
-            while self._receiver_alive:
-                data =b''
-                try:
-                    data = self.sock.recv(1)
-                except socket.timeout:
-                    pass
-                if len(data) > 0:
-                    self._receive_buffer += data
-                    #self._receive_buffer.append(data)
-                    if len(self._receive_buffer) >= 4:
-                        message_len = int.from_bytes(self._receive_buffer[:4], byteorder='big')
-                        if len(self._receive_buffer) == 4 + message_len:
-                            message = self._receive_buffer[4:].decode('utf-8')
-                            if message.startswith('broadcast'):
-                                command = message.replace('broadcast ', '', 1).replace('"', '', 2)
-                                print('broadcast:', command)
-                                # 以下実際のロボットに接続している場合のみ
-                                if command in md.get_motion_list():
-                                    motion = md.get_motion_data(command)
-                                    motion_type = motion['type']
-                                    motion_data = motion['data']
-                                    print(motion_data)
-                                    if motion_type == 'angle':
-                                        vc.set_servo_angle(motion_data, 2)
-                                    if motion_type == 'ik':
-                                        vc.set_ik(motion_data)
-                                    if motion_type == 'gpio':
-                                        vc.set_vid_io_mode([{'iid': 7, 'mode': 1}])
-                                        vc.set_gpio_config(motion_data)
-                            if message.startswith('sensor-update'):
-                                print('sensor-update:', message.replace('sensor-update ', '', 1))
-                            self._receive_buffer = b''
-        except:
-            raise
-
-    def send_broadcast(self, message):
-        '''
-        broadcastメッセージを投げる
-
-        メッセージに登録がない場合、日本語だと文字化けする可能性あり
-        '''
-        message_data = ('broadcast "' + message + '"').encode('utf-8')
-        print(len(message_data).to_bytes(4, byteorder='big') + message_data)
-        self.sock.sendall(len(message_data).to_bytes(4, byteorder='big') + message_data)
-
-    def send_sensor_update(self, name, value):
-        message_data = ('sensor-update "' + name + '" ' + str(value)).encode('utf-8')
-        self.sock.sendall(len(message_data).to_bytes(4, byteorder='big') + message_data)
+    def sonsor_update_handler(**sensor_data):
+        for name, value in sensor_data.items():
+            print('[receive] sensor-update:', name, value)
 
 
 #ここからTornadeでのWeb/WebSocketサーバーに関する定義
@@ -215,7 +127,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
     def on_message(self, message):
         global md
-        global srs
+        global rsc
         global vc
         received_data = json.loads(message)
         print('got message:', received_data['command'])
@@ -247,7 +159,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
             # Scratchに接続
             print('Connecting to Scratch...', end='')
             try:
-                srs.connect()
+                rsc.connect()
             except:
                 self.write_message(json.dumps({'message': 'scratch_cannot_connect'}))
                 print('fail')
@@ -258,8 +170,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         elif received_data['command'] == 'scratch_disconnect':
             # Scratcから切断
             print('Disconnecting from Scratch...', end='')
-            srs.disconnect()
-            srs = ScratchRemoteSensor()
+            rsc.disconnect()
             self.write_message(json.dumps({'message': 'scratch_disconnected'}))
             print('done')
 
@@ -289,12 +200,9 @@ if __name__ == '__main__':
 
     # モーションデータのインスタンス生成
     md = MotionData()
-    #motion = md.read_json('scratch_command.json')
-    #print(motion)
-    #md.write_json('scratch_command.json', md.data)
 
     # Scratch接続のためのインスタンス生成
-    srs = ScratchRemoteSensor()
+    rsc = scratch.RemoteSensorConnection(Receiver.broadcast_handler, Receiver.sonsor_update_handler)
 
     # Tornado起動
     print('Starting Web/WebSocket Server...', end='')
