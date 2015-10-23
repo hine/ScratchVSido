@@ -2,79 +2,79 @@
   "data_set_name": "sample",
   "data_set": [
     {
+      "type": "ik",
       "data": [
         {
           "kid": 2,
           "kdt": {
             "x": 0,
             "y": 0,
-            "z": 100
+            "z": 99
           }
         }
       ],
-      "type": "ik",
       "name": "\u53f3\u624b\u4e0a\u3052\u308b"
     },
     {
+      "type": "ik",
       "data": [
         {
           "kid": 2,
           "kdt": {
             "x": 0,
             "y": 0,
-            "z": -100
+            "z": -99
           }
         }
       ],
-      "type": "ik",
       "name": "\u53f3\u624b\u4e0b\u3052\u308b"
     },
     {
+      "type": "ik",
       "data": [
         {
           "kid": 3,
           "kdt": {
             "x": 0,
             "y": 0,
-            "z": 100
+            "z": 99
           }
         }
       ],
-      "type": "ik",
       "name": "\u5de6\u624b\u4e0a\u3052\u308b"
     },
     {
+      "type": "ik",
       "data": [
         {
           "kid": 3,
           "kdt": {
             "x": 0,
             "y": 0,
-            "z": -100
+            "z": -99
           }
         }
       ],
-      "type": "ik",
       "name": "\u5de6\u624b\u4e0b\u3052\u308b"
     },
     {
+      "type": "gpio",
       "data": [
         {
           "value": 1,
           "iid": 7
         }
       ],
-      "type": "gpio",
       "name": "\u76ee\u304c\u5149\u308b"
     },
     {
+      "type": "gpio",
       "data": [
         {
           "value": 0,
           "iid": 7
         }
       ],
-      "type": "gpio",
       "name": "\u76ee\u304c\u6d88\u3048\u308b"
     }
   ]

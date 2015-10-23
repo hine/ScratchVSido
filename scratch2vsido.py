@@ -82,9 +82,9 @@ class Receiver(object):
             motion_data = motion['data']
             print(motion_data)
             if motion_type == 'angle':
-                vc.set_servo_angle(motion_data, 2)
+                vc.set_servo_angle(*motion_data, cycle_time=2)
             if motion_type == 'ik':
-                vc.set_ik(motion_data)
+                vc.set_ik(*motion_data)
             if motion_type == 'gpio':
                 vc.set_vid_io_mode([{'iid': 7, 'mode': 1}])
                 vc.set_gpio_config(motion_data)
