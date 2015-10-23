@@ -27,7 +27,7 @@ class MotionData(object):
     def __init__(self):
         self.motion_data = {}
 
-    def set_motion_data_set(self, json_data):
+    def set_motion_dataset(self, json_data):
         for data in json_data['data_set']:
             self.motion_data[data['name']] = {'type': data['type'], 'data': data['data']}
 
@@ -79,15 +79,21 @@ class Receiver(object):
         if message in md.get_motion_list():
             motion = md.get_motion_data(message)
             motion_type = motion['type']
-            motion_data = motion['data']
-            print(motion_data)
-            if motion_type == 'angle':
-                vc.set_servo_angle(*motion_data, cycle_time=2)
-            if motion_type == 'ik':
-                vc.set_ik(*motion_data)
-            if motion_type == 'gpio':
-                vc.set_vid_io_mode([{'iid': 7, 'mode': 1}])
-                vc.set_gpio_config(motion_data)
+            if motion_type == 'motion':
+                motion_list = motion['data']
+            else:
+                motion_list = [motion, ]
+            for motion_data in motion_list:
+                print(motion_data)
+                if motion_data['type'] == 'angle':
+                    vc.set_servo_angle(*motion_data['data'], cycle_time=2)
+                if motion_data['type'] == 'ik':
+                    vc.set_ik(*motion_data['data'])
+                if motion_data['type'] == 'gpio':
+                    vc.set_vid_io_mode([{'iid': 7, 'mode': 1}])
+                    vc.set_gpio_config(motion_data['data'])
+                if motion_data['type'] == 'wait':
+                    time.sleep(motion_data['data'] / 1000)
 
     def sonsor_update_handler(**sensor_data):
         for name, value in sensor_data.items():
@@ -113,12 +119,13 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
     '''
 
     def open(self):
+        global md
         self.i = 0
         self.callback = tornado.ioloop.PeriodicCallback(self._send_message, 50)
         self.callback.start()
         print('WebSocket opened')
         motion_data = md.read_json('scratch_command.json')
-        md.set_motion_data_set(motion_data)
+        md.set_motion_dataset(motion_data)
         self.write_message(json.dumps({'message': 'scratch_command', 'json_data': motion_data}))
 
     def check_origin(self, origin):
@@ -153,6 +160,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
             # JSONデータを保存する
             json_data = received_data['json_data']
             md.write_json('scratch_command.json', json_data)
+            md.set_motion_dataset(json_data)
             self.write_message(json.dumps({'message': 'scratch_command', 'json_data': json_data}))
             print('done')
         elif received_data['command'] == 'scratch_connect':
