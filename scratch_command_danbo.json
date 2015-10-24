@@ -1,0 +1,813 @@
+{
+  "data_set_name": "danbo",
+  "data_set": [
+    {
+      "name": "初期姿勢",
+      "type": "angle",
+      "time": 200,
+      "data": [
+        {"sid": 2, "angle": -45},
+        {"sid": 23, "angle": -45},
+        {"sid": 31, "angle": 0},
+        {"sid": 3, "angle": 45},
+        {"sid": 6, "angle": -45},
+        {"sid": 4, "angle": 24},
+        {"sid": 7, "angle": -24},
+        {"sid": 10, "angle": -45},
+        {"sid": 16, "angle": 45},
+        {"sid": 11, "angle": -45},
+        {"sid": 17, "angle": 45}
+      ]
+    },
+    {
+      "name": "おじぎする",
+      "type": "motion",
+      "time": 0,
+      "data": [
+        {
+          "type": "angle",
+          "time": 500,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -37},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 37},
+            {"sid": 6, "angle": -37},
+            {"sid": 4, "angle": 8},
+            {"sid": 7, "angle": -8},
+            {"sid": 10, "angle": -48.5},
+            {"sid": 16, "angle": 48.5},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 800,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 500,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -61},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 85},
+            {"sid": 6, "angle": -85},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -39},
+            {"sid": 16, "angle": 39},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 1500,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 800,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -45},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 45},
+            {"sid": 6, "angle": -45},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 800,
+          "data": 0
+        }
+      ]
+    },
+    {
+      "name": "はじまるよ",
+      "type": "motion",
+      "time": 0,
+      "data": [
+        {
+          "type": "angle",
+          "time": 500,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -29},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 69},
+            {"sid": 6, "angle": -69},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -38},
+            {"sid": 16, "angle": 38},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 130,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -29},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 69},
+            {"sid": 6, "angle": -69},
+            {"sid": 4, "angle": 33},
+            {"sid": 7, "angle": -33},
+            {"sid": 10, "angle": -38},
+            {"sid": 16, "angle": 38},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 130,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 130,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -29},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 69},
+            {"sid": 6, "angle": -69},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -38},
+            {"sid": 16, "angle": 38},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 130,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 130,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -29},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 69},
+            {"sid": 6, "angle": -69},
+            {"sid": 4, "angle": 33},
+            {"sid": 7, "angle": -33},
+            {"sid": 10, "angle": -38},
+            {"sid": 16, "angle": 38},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 130,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 130,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -29},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 69},
+            {"sid": 6, "angle": -69},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -38},
+            {"sid": 16, "angle": 38},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 130,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 200,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -29},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 69},
+            {"sid": 6, "angle": -69},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -38},
+            {"sid": 16, "angle": 38},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 200,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 500,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -45},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 45},
+            {"sid": 6, "angle": -45},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        }
+      ]
+    },
+    {
+      "name": "バイバイ",
+      "type": "motion",
+      "time": 0,
+      "data": [
+        {
+          "type": "angle",
+          "time": 500,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -21},
+            {"sid": 31, "angle": -10.5},
+            {"sid": 3, "angle": 37},
+            {"sid": 6, "angle": 59},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -8},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 29}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 400,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -29},
+            {"sid": 31, "angle": -16},
+            {"sid": 3, "angle": 53},
+            {"sid": 6, "angle": 67},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -32},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 29}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 400,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 400,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -21},
+            {"sid": 31, "angle": -10.5},
+            {"sid": 3, "angle": 37},
+            {"sid": 6, "angle": 59},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -8},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 29}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 400,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 400,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -29},
+            {"sid": 31, "angle": -16},
+            {"sid": 3, "angle": 53},
+            {"sid": 6, "angle": 67},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -32},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 29}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 400,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 400,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -21},
+            {"sid": 31, "angle": -10.5},
+            {"sid": 3, "angle": 37},
+            {"sid": 6, "angle": 59},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -8},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 29}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 400,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 400,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -29},
+            {"sid": 31, "angle": -16},
+            {"sid": 3, "angle": 53},
+            {"sid": 6, "angle": 67},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -32},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 29}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 400,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 500,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -45},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 45},
+            {"sid": 6, "angle": -45},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        }
+      ]
+    },
+    {
+      "name": "ニコニコ",
+      "type": "motion",
+      "time": 0,
+      "data": [
+        {
+          "type": "angle",
+          "time": 300,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -45},
+            {"sid": 31, "angle": 8},
+            {"sid": 3, "angle": 45},
+            {"sid": 6, "angle": -45},
+            {"sid": 4, "angle": 8},
+            {"sid": 7, "angle": -40},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 300,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 300,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -45},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 45},
+            {"sid": 6, "angle": -45},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 300,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 300,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -45},
+            {"sid": 31, "angle": -8},
+            {"sid": 3, "angle": 45},
+            {"sid": 6, "angle": -45},
+            {"sid": 4, "angle": 40},
+            {"sid": 7, "angle": -8},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 300,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 300,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -45},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 45},
+            {"sid": 6, "angle": -45},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 300,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 300,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -45},
+            {"sid": 31, "angle": 8},
+            {"sid": 3, "angle": 45},
+            {"sid": 6, "angle": -45},
+            {"sid": 4, "angle": 8},
+            {"sid": 7, "angle": -40},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 300,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 300,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -45},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 45},
+            {"sid": 6, "angle": -45},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 300,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 300,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -45},
+            {"sid": 31, "angle": -8},
+            {"sid": 3, "angle": 45},
+            {"sid": 6, "angle": -45},
+            {"sid": 4, "angle": 40},
+            {"sid": 7, "angle": -8},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 300,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 500,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -45},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 45},
+            {"sid": 6, "angle": -45},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        }
+      ]
+    },
+    {
+      "name": "いやいや",
+      "type": "motion",
+      "time": 0,
+      "data": [
+        {
+          "type": "angle",
+          "time": 500,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -37},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": -35},
+            {"sid": 6, "angle": 35},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -50},
+            {"sid": 16, "angle": 50},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 500,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -45},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": -35},
+            {"sid": 6, "angle": 35},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 300,
+          "data": [
+            {"sid": 2, "angle": -61},
+            {"sid": 23, "angle": -37},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": -35},
+            {"sid": 6, "angle": 35},
+            {"sid": 4, "angle": 32},
+            {"sid": 7, "angle": -32},
+            {"sid": 10, "angle": -50},
+            {"sid": 16, "angle": 50},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 300,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 300,
+          "data": [
+            {"sid": 2, "angle": -29},
+            {"sid": 23, "angle": -37},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": -35},
+            {"sid": 6, "angle": 35},
+            {"sid": 4, "angle": 32},
+            {"sid": 7, "angle": -32},
+            {"sid": 10, "angle": -50},
+            {"sid": 16, "angle": 50},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 300,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 300,
+          "data": [
+            {"sid": 2, "angle": -61},
+            {"sid": 23, "angle": -37},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": -35},
+            {"sid": 6, "angle": 35},
+            {"sid": 4, "angle": 16},
+            {"sid": 7, "angle": -16},
+            {"sid": 10, "angle": -50},
+            {"sid": 16, "angle": 50},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 300,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 300,
+          "data": [
+            {"sid": 2, "angle": -29},
+            {"sid": 23, "angle": -37},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": -35},
+            {"sid": 6, "angle": 35},
+            {"sid": 4, "angle": 16},
+            {"sid": 7, "angle": -16},
+            {"sid": 10, "angle": -50},
+            {"sid": 16, "angle": 50},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 300,
+          "data": 0
+        },
+        {
+          "type": "angle",
+          "time": 500,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -45},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 45},
+            {"sid": 6, "angle": -45},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        }
+      ]
+    },
+    {
+      "name": "ぽん",
+      "type": "motion",
+      "time": 0,
+      "data": [
+        {
+          "type": "angle",
+          "time": 100,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -21},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 45},
+            {"sid": 6, "angle": 67},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 200,
+          "data": 0
+        }
+      ]
+    },
+    {
+      "name": "目が光る",
+      "type": "gpio",
+      "time": 0,
+      "data": [
+        {
+          "value": 1,
+          "iid": 7
+        }
+      ]
+    },
+    {
+      "name": "目が消える",
+      "type": "gpio",
+      "time": 0,
+      "data": [
+        {
+          "value": 0,
+          "iid": 7
+        }
+      ]
+    }
+  ]
+}

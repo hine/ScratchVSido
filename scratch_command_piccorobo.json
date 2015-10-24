@@ -1,0 +1,146 @@
+{
+  "data_set_name": "piccorobo",
+  "data_set": [
+    {
+      "data": [
+        {
+          "angle": 0,
+          "sid": 7
+        }
+      ],
+      "time": 20,
+      "name": "\u9996\u3092\u6b63\u9762\u306b",
+      "type": "angle"
+    },
+    {
+      "data": [
+        {
+          "angle": 30,
+          "sid": 7
+        }
+      ],
+      "time": 20,
+      "name": "\u9996\u3092\u53f3\u306b",
+      "type": "angle"
+    },
+    {
+      "data": [
+        {
+          "angle": -30,
+          "sid": 7
+        }
+      ],
+      "time": 20,
+      "name": "\u9996\u3092\u5de6\u306b",
+      "type": "angle"
+    },
+    {
+      "data": [
+        {
+          "angle": 35,
+          "sid": 4
+        }
+      ],
+      "time": 20,
+      "name": "\u53f3\u8db3\u4e0a\u3052\u308b",
+      "type": "angle"
+    },
+    {
+      "data": [
+        {
+          "angle": -35,
+          "sid": 4
+        }
+      ],
+      "time": 20,
+      "name": "\u5de6\u8db3\u4e0a\u3052\u308b",
+      "type": "angle"
+    },
+    {
+      "data": [
+        {
+          "angle": 0,
+          "sid": 4
+        }
+      ],
+      "time": 20,
+      "name": "\u8db3\u4e0b\u308d\u3059",
+      "type": "angle"
+    },
+    {
+      "data": [
+        {
+          "angle": 15,
+          "sid": 5
+        },
+        {
+          "angle": 15,
+          "sid": 6
+        }
+      ],
+      "time": 20,
+      "name": "\u53f3\u306b\u3072\u306d\u308b",
+      "type": "angle"
+    },
+    {
+      "data": [
+        {
+          "angle": -15,
+          "sid": 5
+        },
+        {
+          "angle": -15,
+          "sid": 6
+        }
+      ],
+      "time": 20,
+      "name": "\u5de6\u306b\u3072\u306d\u308b",
+      "type": "angle"
+    },
+    {
+      "data": [
+        {
+          "angle": 0,
+          "sid": 5
+        },
+        {
+          "angle": 0,
+          "sid": 6
+        }
+      ],
+      "time": 20,
+      "name": "\u3072\u306d\u308a\u3092\u3082\u3069\u3059",
+      "type": "angle"
+    },
+    {
+      "data": [
+        {
+          "angle": -12,
+          "sid": 5
+        },
+        {
+          "angle": 12,
+          "sid": 6
+        }
+      ],
+      "time": 20,
+      "name": "\u8db3\u3092\u3072\u3089\u304f",
+      "type": "angle"
+    },
+    {
+      "data": [
+        {
+          "angle": 0,
+          "sid": 5
+        },
+        {
+          "angle": 0,
+          "sid": 6
+        }
+      ],
+      "time": 20,
+      "name": "\u8db3\u3092\u3068\u3058\u308b",
+      "type": "angle"
+    }
+  ]
+}

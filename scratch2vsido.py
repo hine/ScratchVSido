@@ -26,10 +26,14 @@ class MotionData(object):
     '''
     def __init__(self):
         self.motion_data = {}
+        self.json_path = 'scratch_command.json' # モーションデータファイルのデフォルトファイル名
+
+    def set_motion_filepath(self, json_path):
+        self.json_path = json_path
 
     def set_motion_dataset(self, json_data):
         for data in json_data['data_set']:
-            self.motion_data[data['name']] = {'type': data['type'], 'data': data['data']}
+            self.motion_data[data['name']] = {'type': data['type'], 'data': data['data'], 'time': data['time']}
 
     def get_motion_list(self):
         return self.motion_data.keys()
@@ -40,16 +44,16 @@ class MotionData(object):
         else:
             return {}
 
-    def read_json(self, json_path):
+    def read_json_file(self):
         ''' jsonの読み込み '''
         json_data = {}
-        if not os.path.exists(json_path):
+        if not os.path.exists(self.json_path):
             # jsonが読み込めないので初期化と保存をする
             json_data = {'data_set_name': 'empty', 'data_set': []}
-            self.write_json(json_path, json_data)
+            self.write_json_file(json_data)
             return json_data
         else:
-            with open(json_path, 'r', encoding='utf-8') as fp:
+            with open(self.json_path, 'r', encoding='utf-8') as fp:
                 try:
                     json_data = json.load(fp)
                 except IOError:
@@ -60,9 +64,9 @@ class MotionData(object):
                 finally:
                     fp.close()
 
-    def write_json(self, json_path, json_data):
+    def write_json_file(self, json_data):
         ''' jsonの保存 '''
-        with open(json_path, 'w', encoding='utf-8') as fp:
+        with open(self.json_path, 'w', encoding='utf-8') as fp:
             try:
                 json.dump(json_data, fp, indent=2)
             except IOError:
@@ -86,14 +90,14 @@ class Receiver(object):
             for motion_data in motion_list:
                 print(motion_data)
                 if motion_data['type'] == 'angle':
-                    vc.set_servo_angle(*motion_data['data'], cycle_time=2)
+                    vc.set_servo_angle(*motion_data['data'], cycle_time=round(motion_data['time']))
                 if motion_data['type'] == 'ik':
                     vc.set_ik(*motion_data['data'])
                 if motion_data['type'] == 'gpio':
-                    vc.set_vid_io_mode([{'iid': 7, 'mode': 1}])
-                    vc.set_gpio_config(motion_data['data'])
+                    vc.set_vid_io_mode({'iid': 7, 'mode': 1})
+                    vc.set_gpio_value(*motion_data['data'])
                 if motion_data['type'] == 'wait':
-                    time.sleep(motion_data['data'] / 1000)
+                    time.sleep(motion_data['time'] / 1000)
 
     def sonsor_update_handler(**sensor_data):
         for name, value in sensor_data.items():
@@ -124,7 +128,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         self.callback = tornado.ioloop.PeriodicCallback(self._send_message, 50)
         self.callback.start()
         print('WebSocket opened')
-        motion_data = md.read_json('scratch_command.json')
+        motion_data = md.read_json_file()
         md.set_motion_dataset(motion_data)
         self.write_message(json.dumps({'message': 'scratch_command', 'json_data': motion_data}))
 
@@ -159,7 +163,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
             print('Renewaling/Saving Motion Data...', end='')
             # JSONデータを保存する
             json_data = received_data['json_data']
-            md.write_json('scratch_command.json', json_data)
+            md.write_json_file(json_data)
             md.set_motion_dataset(json_data)
             self.write_message(json.dumps({'message': 'scratch_command', 'json_data': json_data}))
             print('done')
@@ -204,10 +208,16 @@ web_application = tornado.web.Application([
 
 if __name__ == '__main__':
     # V-Sido CONNECTのインスタンス生成
-    vc = vsido.Connect()
+    vc = vsido.Connect(debug=True)
 
     # モーションデータのインスタンス生成
     md = MotionData()
+
+    # 引数処理
+    param = sys.argv
+    if len(param) > 1:
+        # 引数がついていればモーションファイル名で使う
+        md.set_motion_filepath(param[1])
 
     # Scratch接続のためのインスタンス生成
     rsc = scratch.RemoteSensorConnection(Receiver.broadcast_handler, Receiver.sonsor_update_handler)
