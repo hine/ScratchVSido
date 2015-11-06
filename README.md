@@ -3,6 +3,8 @@
 [アスラテック株式会社](http://www.asratec.co.jp/ "アスラテック株式会社")のロボット制御マイコンボード「[V-Sido CONNECT RC](http://www.asratec.co.jp/product/connect/rc/ "V-Sido CONNECT RC")」をScratchからコントロールするためのRemote Sensor ConnectionのRubyによるサンプルコードです。  
 [V-Sido Developerサイトの技術資料](https://v-sido-developer.com/learning/connect/connect-rc/ "V-Sido Developerサイトの技術資料")に公開されている情報を元に、個人が作成したもので、アスラテック社公式のツールではありません。  
 Scratch1.4からRemote Sensor Protocolを経由し、シリアル接続からV-Sido CONNECTをコントロールすることができます。
+  
+なお、現在は[Python版](https://github.com/hine/ScratchVSido/tree/python "Python版")を主にメンテナンスしています。Python版はこのRuby版とは違う使い方で、Web画面からScratchからのコマンドを作れるように指定ます。
 
 ## 誰が作ったの？
 アスラテック株式会社に勤務する今井大介(Daisuke IMAI)が個人として作成しました。
