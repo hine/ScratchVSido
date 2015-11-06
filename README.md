@@ -1,8 +1,10 @@
 # ScratchVSido
 ## これは何？
-[アスラテック株式会社](http://www.asratec.co.jp/ "アスラテック株式会社")のロボット制御マイコンボード「[V-Sido CONNECT RC](http://www.asratec.co.jp/product/connect/rc/ "V-Sido CONNECT RC")」をScratchからコントロールするためのRemote Sensor ConnectionのRubyによるサンプルコードです。  
+[アスラテック株式会社](http://www.asratec.co.jp/ "アスラテック株式会社")のロボット制御マイコンボード「[V-Sido CONNECT RC](http://www.asratec.co.jp/product/connect/rc/ "V-Sido CONNECT RC")」をScratchからコントロールするためのRemote Sensor ConnectionのPython3によるサンプルコードです。  
 [V-Sido Developerサイトの技術資料](https://v-sido-developer.com/learning/connect/connect-rc/ "V-Sido Developerサイトの技術資料")に公開されている情報を元に、個人が作成したもので、アスラテック社公式のツールではありません。  
 Scratch1.4からRemote Sensor Protocolを経由し、シリアル接続からV-Sido CONNECTをコントロールすることができます。
+  
+元は[Ruby版](https://github.com/hine/ScratchVSido/tree/master "Ruby版")で書いていましたが、現在は全く仕様を変えてこのPython版のみメンテナンスしています。
 
 ## 誰が作ったの？
 アスラテック株式会社に勤務する今井大介(Daisuke IMAI)が個人として作成しました。
@@ -11,37 +13,19 @@ Scratch1.4からRemote Sensor Protocolを経由し、シリアル接続からV-S
 だってScratchからロボットが動かせたら楽しいじゃないですか！  
 
 ## 動作環境
-Windows、OS X、Ubuntuなど上のScratch1.4ならびにRubyで動作するのではないかと思います。  
+Windows、OS X、Ubuntuなど上のScratch1.4ならびにPython3で動作するのではないかと思います。  
 動作確認済み環境は、  
-* OS X 10.10.3(Yosemite) + Ruby 2.1.5p273  
+* OS X 10.11.1(ElCapitan) + Python3.4.3
+* Windows8.1/10 + Python3.4.3/3.5
+です。まだ未確認ですが、RaspberryPiでも動かせるのではないかと思います。  
 
-Scratchとの接続に、[logiblocs](https://scratch.mit.edu/users/logiblocs/ "logiblocs")氏のコードを利用しています。  
-[ここ](http://scratchforums.blob8108.net/forums/viewtopic.php?id=113658 "Sample Code")から、scratchrsc.rbを使わせていただいています。
+Scratchとの接続に、自作の[pyscratchライブラリ](https://github.com/hine/pyscratch "pyscratchライブラリ")と、[pyvsidoライブラリ](https://github.com/hine/pyvsido "pyvsidoライブラリ")を利用しています。  
 
 ## 使い方
-まずScratch1.4を立ち上げてから、同じマシンで、  
-$ ruby scratch2vsido.rb [シリアルポートデバイス] [Scratchが起動しているマシンのIPアドレス]  
-で起動してください。  
-通常は、IPアドレスは省略可能です。
+後日、まとめます。  
 
 ## Scratchでの使い方
-[Scratchのサンプル](https://scratch.mit.edu/projects/63929748/#editor "Scratch Sample")を参照してください。  
-
-* サーボ角度のコントロール  
-まずはreset_anglesのメッセージを送り、その後、変数sidにサーボモーターのIDを、変数angleに目的角度を設定、変数timeに変化にかかる時間を設定。
-その後set_angleメッセージを送ります。すぐにsidなどを変更すると誤動作することがあるので、0秒の待つを入れてください。
-まとめて変化させたいサーボを全て登録し、その後、execute_anglesのメッセージを送れば実際にサーボモーターに命令が送られます。  
-
-* IK(Inverse kinematicsによる逆運動制御)のコントロール  
-まずはreset_iksのメッセージを送り、その後、変数kidにIK制御のIDを、変数ikx、iky、ikzに目的位置を設定。
-その後set_ikメッセージを送ります。すぐにkidなどを変更すると誤動作することがあるので、0秒の待つを入れてください。
-まとめて変化させたいIK制御を全て登録し、その後、execute_iksのメッセージを送れば実際にサーボモーターに命令が送られます。  
-
-* 歩行のコントロール  
-変数speedに前後方向の移動量を、変数turnに左右の旋回量を設定。
-その後walkメッセージを送れば実際にサーボモーターに命令が送られます。  
-
-詳しくは[V-Sido Developerサイトの技術資料](https://v-sido-developer.com/learning/connect/connect-rc/ "V-Sido Developerサイトの技術資料")を見てください。
+後日、まとめます。  
 
 ## 免責事項
 一応。  
