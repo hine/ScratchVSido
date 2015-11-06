@@ -19,7 +19,7 @@ Windows、OS X、Ubuntuなど上のScratch1.4ならびにPython3で動作する�
 * Windows8.1/10 + Python3.4.3/3.5
 です。まだ未確認ですが、RaspberryPiでも動かせるのではないかと思います。  
 
-Scratchとの接続に、自作の[pyscratchライブラリ](https://github.com/hine/pyscratch "pyscratchライブラリ")と、[pyvsidoライブラリ](https://github.com/hine/pyvsido "pyvsidoライブラリ")を利用しています。  
+Scratchとの接続に自作の[pyscratchライブラリ](https://github.com/hine/pyscratch "pyscratchライブラリ")を、V-Sidoとの接続に同じく自作の[pyvsidoライブラリ](https://github.com/hine/pyvsido "pyvsidoライブラリ")を利用しています。  
 
 ## 使い方
 後日、まとめます。  
