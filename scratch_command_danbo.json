@@ -809,6 +809,11 @@
 						{"sid": 31, "angle": 8}
 					]
 				},
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
 				{
 					"type": "angle",
 					"time": 500,
@@ -826,6 +831,11 @@
 						{"sid": 31, "angle": -8}
 					]
 				},
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
 				{
 					"type": "angle",
 					"time": 500,
@@ -843,6 +853,11 @@
 						{"sid": 31, "angle": 0}
 					]
 				},
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
 				{
 					"type": "angle",
 					"time": 500,
@@ -884,6 +899,11 @@
 						{"sid": 31, "angle": 0}
 					]
 				},
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
 				{
 					"type": "angle",
 					"time": 500,
@@ -901,6 +921,11 @@
 						{"sid": 31, "angle": 0}
 					]
 				},
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
 				{
 					"type": "angle",
 					"time": 500,
@@ -918,6 +943,11 @@
 						{"sid": 31, "angle": 0}
 					]
 				},
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
 				{
 					"type": "angle",
 					"time": 500,
@@ -959,6 +989,11 @@
 						{"sid": 31, "angle": 0}
 					]
 				},
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
 				{
 					"type": "angle",
 					"time": 500,
@@ -976,6 +1011,11 @@
 						{"sid": 31, "angle": -8}
 					]
 				},
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
 				{
 					"type": "angle",
 					"time": 500,
@@ -993,6 +1033,11 @@
 						{"sid": 31, "angle": 0}
 					]
 				},
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
 				{
 					"type": "angle",
 					"time": 500,
