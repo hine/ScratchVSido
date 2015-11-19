@@ -788,12 +788,237 @@
       ]
     },
     {
+			"name": "アイドリング",
+			"type": "motion",
+			"time": 0,
+			"data": [
+				{
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -45},
+						{"sid": 3, "angle": 45},
+						{"sid": 4, "angle": 8},
+						{"sid": 6, "angle": -45},
+						{"sid": 7, "angle": -40},
+						{"sid": 10, "angle": -45},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 45},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -45},
+						{"sid": 31, "angle": 8}
+					]
+				},
+				{
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -45},
+						{"sid": 3, "angle": 45},
+						{"sid": 4, "angle": 40},
+						{"sid": 6, "angle": -45},
+						{"sid": 7, "angle": -8},
+						{"sid": 10, "angle": -45},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 45},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -45},
+						{"sid": 31, "angle": -8}
+					]
+				},
+				{
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -45},
+						{"sid": 3, "angle": 45},
+						{"sid": 4, "angle": 24},
+						{"sid": 6, "angle": -45},
+						{"sid": 7, "angle": -24},
+						{"sid": 10, "angle": -45},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 45},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -45},
+						{"sid": 31, "angle": 0}
+					]
+				},
+				{
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -45},
+						{"sid": 3, "angle": 45},
+						{"sid": 4, "angle": 24},
+						{"sid": 6, "angle": -45},
+						{"sid": 7, "angle": -24},
+						{"sid": 10, "angle": -45},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 45},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -45},
+						{"sid": 31, "angle": 0}
+					]
+				}
+			]
+		},
+    {
+			"name": "アイドリング前後",
+			"type": "motion",
+			"time": 0,
+			"data": [
+				{
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -37},
+						{"sid": 3, "angle": 77},
+						{"sid": 4, "angle": 24},
+						{"sid": 6, "angle": -13},
+						{"sid": 7, "angle": -24},
+						{"sid": 10, "angle": -46},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 46},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -37},
+						{"sid": 31, "angle": 0}
+					]
+				},
+				{
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -45},
+						{"sid": 3, "angle": 45},
+						{"sid": 4, "angle": 32},
+						{"sid": 6, "angle": -45},
+						{"sid": 7, "angle": -32},
+						{"sid": 10, "angle": -44},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 44},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -53},
+						{"sid": 31, "angle": 0}
+					]
+				},
+				{
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -53},
+						{"sid": 3, "angle": 13},
+						{"sid": 4, "angle": 24},
+						{"sid": 6, "angle": -77},
+						{"sid": 7, "angle": -24},
+						{"sid": 10, "angle": -46},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 46},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -37},
+						{"sid": 31, "angle": 0}
+					]
+				},
+				{
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -45},
+						{"sid": 3, "angle": 45},
+						{"sid": 4, "angle": 32},
+						{"sid": 6, "angle": -45},
+						{"sid": 7, "angle": -32},
+						{"sid": 10, "angle": -44},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 44},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -53},
+						{"sid": 31, "angle": 0}
+					]
+				}
+			]
+		},
+		{
+			"name": "アイドリングロール",
+			"type": "motion",
+			"time": 0,
+			"data": [
+				{
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -45},
+						{"sid": 3, "angle": 45},
+						{"sid": 4, "angle": 24},
+						{"sid": 6, "angle": -45},
+						{"sid": 7, "angle": -24},
+						{"sid": 10, "angle": -45},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 45},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -45},
+						{"sid": 31, "angle": 0}
+					]
+				},
+				{
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -45},
+						{"sid": 3, "angle": 45},
+						{"sid": 4, "angle": 8},
+						{"sid": 6, "angle": -45},
+						{"sid": 7, "angle": -8},
+						{"sid": 10, "angle": -45},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 45},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -45},
+						{"sid": 31, "angle": -8}
+					]
+				},
+				{
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -45},
+						{"sid": 3, "angle": 45},
+						{"sid": 4, "angle": 24},
+						{"sid": 6, "angle": -45},
+						{"sid": 7, "angle": -24},
+						{"sid": 10, "angle": -45},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 45},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -45},
+						{"sid": 31, "angle": 0}
+					]
+				},
+				{
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -45},
+						{"sid": 3, "angle": 45},
+						{"sid": 4, "angle": 8},
+						{"sid": 6, "angle": -45},
+						{"sid": 7, "angle": -8},
+						{"sid": 10, "angle": -45},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 45},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -45},
+						{"sid": 31, "angle": 8}
+					]
+				}
+      ]
+		},
+    {
       "name": "目が光る",
       "type": "gpio",
       "time": 0,
       "data": [
         {
-          "value": 1,
+          "pulse": 2250,
           "iid": 7
         }
       ]
@@ -804,7 +1029,7 @@
       "time": 0,
       "data": [
         {
-          "value": 0,
+          "pulse": 750,
           "iid": 7
         }
       ]

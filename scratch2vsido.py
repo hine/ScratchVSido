@@ -96,6 +96,9 @@ class Receiver(object):
                 if motion_data['type'] == 'gpio':
                     vc.set_vid_io_mode({'iid': 7, 'mode': 1})
                     vc.set_gpio_value(*motion_data['data'])
+                if motion_data['type'] == 'pwm':
+                    vc.set_vid_use_pwm();
+                    vc.set_pwm_pulse_width(*motion_data['data'])
                 if motion_data['type'] == 'wait':
                     time.sleep(motion_data['time'] / 1000)
 
@@ -152,6 +155,8 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                 print('fail')
             else:
                 self.write_message(json.dumps({'message': 'robot_connected'}))
+                # PWMで目を光らせる場合に必要
+                vc.set_vid_use_pwm();
                 print('done')
         elif received_data['command'] == 'robot_disconnect':
             print('Disconnecting from V-Sido CONNECT...', end='')
