@@ -1014,7 +1014,7 @@
 		},
     {
       "name": "目が光る",
-      "type": "gpio",
+      "type": "pwm",
       "time": 0,
       "data": [
         {
@@ -1025,7 +1025,7 @@
     },
     {
       "name": "目が消える",
-      "type": "gpio",
+      "type": "pwm",
       "time": 0,
       "data": [
         {
