@@ -874,6 +874,94 @@
 						{"sid": 23, "angle": -45},
 						{"sid": 31, "angle": 0}
 					]
+				},
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
+        {
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -45},
+						{"sid": 3, "angle": 45},
+						{"sid": 4, "angle": 8},
+						{"sid": 6, "angle": -45},
+						{"sid": 7, "angle": -40},
+						{"sid": 10, "angle": -45},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 45},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -45},
+						{"sid": 31, "angle": 8}
+					]
+				},
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
+				{
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -45},
+						{"sid": 3, "angle": 45},
+						{"sid": 4, "angle": 40},
+						{"sid": 6, "angle": -45},
+						{"sid": 7, "angle": -8},
+						{"sid": 10, "angle": -45},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 45},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -45},
+						{"sid": 31, "angle": -8}
+					]
+				},
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
+				{
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -45},
+						{"sid": 3, "angle": 45},
+						{"sid": 4, "angle": 24},
+						{"sid": 6, "angle": -45},
+						{"sid": 7, "angle": -24},
+						{"sid": 10, "angle": -45},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 45},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -45},
+						{"sid": 31, "angle": 0}
+					]
+				},
+        {
+          "type": "wait",
+          "time": 500,
+          "data": 0
+        },
+				{
+					"type": "angle",
+					"time": 500,
+					"data": [
+						{"sid": 2, "angle": -45},
+						{"sid": 3, "angle": 45},
+						{"sid": 4, "angle": 24},
+						{"sid": 6, "angle": -45},
+						{"sid": 7, "angle": -24},
+						{"sid": 10, "angle": -45},
+						{"sid": 11, "angle": -45},
+						{"sid": 16, "angle": 45},
+						{"sid": 17, "angle": 45},
+						{"sid": 23, "angle": -45},
+						{"sid": 31, "angle": 0}
+					]
 				}
 			]
 		},
@@ -1054,7 +1142,29 @@
 						{"sid": 23, "angle": -45},
 						{"sid": 31, "angle": 8}
 					]
-				}
+				},
+        {
+          "type": "angle",
+          "time": 800,
+          "data": [
+            {"sid": 2, "angle": -45},
+            {"sid": 23, "angle": -45},
+            {"sid": 31, "angle": 0},
+            {"sid": 3, "angle": 45},
+            {"sid": 6, "angle": -45},
+            {"sid": 4, "angle": 24},
+            {"sid": 7, "angle": -24},
+            {"sid": 10, "angle": -45},
+            {"sid": 16, "angle": 45},
+            {"sid": 11, "angle": -45},
+            {"sid": 17, "angle": 45}
+          ]
+        },
+        {
+          "type": "wait",
+          "time": 800,
+          "data": 0
+        }
       ]
 		},
     {
