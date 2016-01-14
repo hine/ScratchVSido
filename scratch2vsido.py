@@ -80,6 +80,7 @@ class Receiver(object):
     '''Scratchからの受信データの処理
     '''
     def broadcast_handler(message):
+        print('[receive] broadcast:', message)
         if message in md.get_motion_list():
             motion = md.get_motion_data(message)
             motion_type = motion['type']
