@@ -12,7 +12,7 @@ a{
   padding: 2px 10px;
   color:#aaa ;
 }
-.input_text {
+.input-text {
   border: 0;
   padding: 5px;
   font-size: 16px;
@@ -25,7 +25,7 @@ a{
   margin:0 0 20px;
   padding: 2px 10px;
 }
-.input_textarea {
+.input-textarea {
   border: 0;
   padding: 5px;
   font-size: 16px;
@@ -55,7 +55,7 @@ a{
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
-.button_disable {
+.button-disable {
   font-size: 16px;
   font-weight: bold;
   text-decoration: none;
@@ -68,4 +68,75 @@ a{
   -webkit-border-radius: 5px;
   padding: 2px 10px;
   margin: 5px;
+}
+#json-data {
+  margin: 10px 10px 10px 32px;
+  width: 50%;
+  min-height: 70px;
+}
+#legend {
+  display: inline;
+  margin-left: 30px;
+}
+#legend h2 {
+   display: inline;
+   font-size: 18px;
+   margin-right: 20px;
+}
+#legend a {
+  color: white;
+  margin-right: 20px;
+}
+#legend span {
+  padding: 2px 4px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px black;
+  background-color: black;
+}
+#legend .string {
+  background-color: #009408;
+}
+#legend .array {
+  background-color: #2D5B89;
+}
+#legend .object {
+  background-color: #E17000;
+}
+#legend .number {
+  background-color: #497B8D;
+}
+#legend .boolean {
+  background-color: #B1C639;
+}
+#legend .null {
+  background-color: #B1C639;
+}
+#expander {
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+#footer {
+  font-size: 13px;
+}
+
+#rest {
+  margin: 20px 0 20px 30px;
+}
+#rest label {
+  font-weight: bold;
+}
+#rest-callback {
+  width: 70px;
+}
+#rest-url {
+  width: 700px;
+}
+label[for="json-data"] {
+  margin-left: 30px;
+  display: block;
 }

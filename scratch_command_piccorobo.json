@@ -2,145 +2,161 @@
   "data_set_name": "piccorobo",
   "data_set": [
     {
-      "time": 20,
-      "name": "\u9996\u3092\u6b63\u9762\u306b",
-      "type": "angle",
       "data": [
         {
-          "sid": 7,
-          "angle": 0
+          "angle": 0,
+          "sid": 7
         }
-      ]
+      ],
+      "time": 20,
+      "name": "首を正面に",
+      "type": "angle"
     },
     {
-      "time": 20,
-      "name": "\u9996\u3092\u53f3\u306b",
-      "type": "angle",
       "data": [
         {
-          "sid": 7,
-          "angle": 30
+          "angle": 30,
+          "sid": 7
         }
-      ]
+      ],
+      "time": 20,
+      "name": "首を右に",
+      "type": "angle"
     },
     {
-      "time": 20,
-      "name": "\u9996\u3092\u5de6\u306b",
-      "type": "angle",
       "data": [
         {
-          "sid": 7,
-          "angle": -30
+          "angle": -30,
+          "sid": 7
         }
-      ]
+      ],
+      "time": 20,
+      "name": "首を左に",
+      "type": "angle"
     },
     {
-      "time": 20,
-      "name": "\u53f3\u8db3\u4e0a\u3052\u308b",
-      "type": "angle",
       "data": [
         {
-          "sid": 4,
-          "angle": 35
+          "angle": 35,
+          "sid": 4
         }
-      ]
+      ],
+      "time": 20,
+      "name": "右足上げる",
+      "type": "angle"
     },
     {
-      "time": 20,
-      "name": "\u5de6\u8db3\u4e0a\u3052\u308b",
-      "type": "angle",
       "data": [
         {
-          "sid": 4,
-          "angle": -35
+          "angle": -35,
+          "sid": 4
         }
-      ]
+      ],
+      "time": 20,
+      "name": "左足上げる",
+      "type": "angle"
     },
     {
-      "time": 20,
-      "name": "\u8db3\u4e0b\u308d\u3059",
-      "type": "angle",
       "data": [
         {
-          "sid": 4,
-          "angle": 0
+          "angle": 0,
+          "sid": 4
         }
-      ]
+      ],
+      "time": 20,
+      "name": "足下ろす",
+      "type": "angle"
     },
     {
-      "time": 20,
-      "name": "\u53f3\u306b\u3072\u306d\u308b",
-      "type": "angle",
       "data": [
         {
-          "sid": 5,
-          "angle": 13
+          "angle": 13,
+          "sid": 5
         },
         {
-          "sid": 6,
-          "angle": 13
+          "angle": 13,
+          "sid": 6
         }
-      ]
+      ],
+      "time": 20,
+      "name": "右にひねる",
+      "type": "angle"
     },
     {
-      "time": 20,
-      "name": "\u5de6\u306b\u3072\u306d\u308b",
-      "type": "angle",
       "data": [
         {
-          "sid": 5,
-          "angle": -13
+          "angle": -13,
+          "sid": 5
         },
         {
-          "sid": 6,
-          "angle": -13
+          "angle": -13,
+          "sid": 6
         }
-      ]
+      ],
+      "time": 20,
+      "name": "左にひねる",
+      "type": "angle"
     },
     {
-      "time": 20,
-      "name": "\u3072\u306d\u308a\u3092\u3082\u3069\u3059",
-      "type": "angle",
       "data": [
         {
-          "sid": 5,
-          "angle": 0
+          "angle": 0,
+          "sid": 5
         },
         {
-          "sid": 6,
-          "angle": 0
+          "angle": 0,
+          "sid": 6
         }
-      ]
+      ],
+      "time": 20,
+      "name": "ひねりをもどす",
+      "type": "angle"
     },
     {
-      "time": 20,
-      "name": "\u8db3\u3092\u3072\u3089\u304f",
-      "type": "angle",
       "data": [
         {
-          "sid": 5,
-          "angle": -10
+          "angle": -10,
+          "sid": 5
         },
         {
-          "sid": 6,
-          "angle": 10
+          "angle": 10,
+          "sid": 6
         }
-      ]
+      ],
+      "time": 20,
+      "name": "足をひらく",
+      "type": "angle"
     },
     {
-      "time": 20,
-      "name": "\u8db3\u3092\u3068\u3058\u308b",
-      "type": "angle",
       "data": [
         {
-          "sid": 5,
-          "angle": 0
+          "angle": 0,
+          "sid": 5
         },
         {
-          "sid": 6,
-          "angle": 0
+          "angle": 0,
+          "sid": 6
         }
-      ]
+      ],
+      "time": 20,
+      "name": "足をとじる",
+      "type": "angle"
+    },
+    {
+      "data": [
+        255, 120, 0, 200, 0, 0, 50, 40, 10, 1, 50, 40, 10, 0
+      ],
+      "time": 20,
+      "name": "目が光る",
+      "type": "raw"
+    },
+    {
+      "data": [
+        255, 120, 0, 200, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0
+      ],
+      "time": 20,
+      "name": "目が消える",
+      "type": "raw"
     }
   ]
 }

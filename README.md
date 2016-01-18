@@ -24,6 +24,8 @@ Windows、OS X、Ubuntuなど上のScratch1.4ならびにPython3で動作する�
 
 Scratchとの接続に自作の[pyscratchライブラリ](https://github.com/hine/pyscratch "pyscratchライブラリ")を、V-Sido CONNECT RCとの接続に同じく自作の[pyvsidoライブラリ](https://github.com/hine/pyvsido "pyvsidoライブラリ")を利用しています。  
 
+JSONのビジュアル表示にDavid Durmanさんの[FlexiJsonEditor](https://github.com/DavidDurman/FlexiJsonEditor "FlexiJsonEditor")を利用しています。  
+
 ## 使い方
 後日、まとめます。  
 

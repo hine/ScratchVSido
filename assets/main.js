@@ -1,86 +1,133 @@
-var ws = new WebSocket("ws://localhost:8888/ws");
+(function() {
 
-ws.onopen = function() {
-};
+  var ws = new WebSocket("ws://localhost:8888/ws");
 
-ws.onmessage = function (evt) {
-  // WebSocketでメッセージを受け取った時の処理をまとめて
-  try {
-    var obj = JSON.parse(evt.data);
-    console.log(obj["message"])
-    if (obj["message"] == "robot_connected") {
-      document.getElementById('serial_port').disabled = true;
-      ButtonDisable(document.getElementById('robot_connect'));
-      ButtonEnable(document.getElementById('robot_disconnect'));
-      alert("ロボットに接続されました。");
-    }
-    if (obj["message"] == "robot_cannot_connect") {
-      alert("ロボットに接続出来ませんでした。シリアルポートの確認をしてください。");
-    }
-    if (obj["message"] == "robot_disconnected") {
-      document.getElementById('serial_port').disabled = false;
-      ButtonEnable(document.getElementById('robot_connect'));
-      ButtonDisable(document.getElementById('robot_disconnect'));
-    }
-    if (obj["message"] == "scratch_command") {
-      document.getElementById('json_data').value = JSON.stringify(obj["json_data"], null, "  ");
-      ButtonDisable(document.getElementById('save_json'));
-    }
-    if (obj["message"] == "scratch_connected") {
-      ButtonDisable(document.getElementById('scratch_connect'));
-      ButtonEnable(document.getElementById('scratch_disconnect'));
-      alert("Scratchに接続されました");
-    }
-    if (obj["message"] == "scratch_cannot_connect") {
-      alert("Scratchに接続出来ませんでした。Scratchの起動と遠隔センサーの設定の確認をしてください。");
-    }
-    if (obj["message"] == "scratch_disconnected") {
-      ButtonEnable(document.getElementById('scratch_connect'));
-      ButtonDisable(document.getElementById('scratch_disconnect'));
-    }
-  } catch(e) {
-  }
-};
+  ws.onopen = function() {
+    // WebSocketオープン時の挙動を書く
+  };
 
-function OnButtonClick(button) {
-  // ボタンが押された時の処理をまとめて
-  if (button.id == "robot_connect") {
-    if (document.getElementById('serial_port').value == "") {
+  ws.onmessage = function (evt) {
+    // WebSocketでメッセージを受け取った時の処理をまとめて
+    try {
+      var messageData = JSON.parse(evt.data);
+      parseMessage(messageData);
+    } catch(e) {
+      alert('受け取ったメッセージの形式が不正です [message]:' + messageData['message']);
+    }
+  };
+
+  $('#robot-connect').on('click', function() {
+    if ($('#serial-port').val('')) {
       alert("シリアルポートを指定してください。");
     } else {
-      ws.send(JSON.stringify({command: "robot_connect", port: document.getElementById('serial_port').value}));
+      ws.send(JSON.stringify({command: "robot_connect", port: $('#serial-port').val()}));
     }
-  }
-  if (button.id == "robot_disconnect") {
+  });
+
+  $('#robot-disconnect').on('click', function() {
     ws.send(JSON.stringify({command: "robot_disconnect"}));
-  }
-  if (button.id == "save_json") {
+  });
+
+  $('#save-json').on('click', function() {
     try {
-      json_data = JSON.parse(document.getElementById('json_data').value);
-      ws.send(JSON.stringify({command: "set_scratch_command", json_data: json_data}));
+      jsonData = JSON.parse($('#json-data').val());
+      ws.send(JSON.stringify({command: "set_scratch_command", json_data: jsonData}));
     } catch(e) {
       alert("JSONの構文が間違っています")
     }
-  }
-  if (button.id == "scratch_connect") {
+  });
+
+  $('#scratch-connect').on('click', function() {
     ws.send(JSON.stringify({command: "scratch_connect"}));
-  }
-  if (button.id == "scratch_disconnect") {
+  });
+
+  $('#scratch-disconnect').on('click', function() {
     ws.send(JSON.stringify({command: "scratch_disconnect"}));
+  });
+
+  $('#json-data').on('change keyup', function() {
+    buttonEnable($('#save-json'));
+  });
+
+  var json = {};
+
+  function parseMessage(messageData) {
+    // WebSocketで受け取ったJSONメッセージの処理
+    message = messageData['message']
+    if (message == 'robot_connected') {
+      $('#serial-port').prop("disabled", true);
+      buttonDisable($('#robot-connect'));
+      buttonEnable($('#robot-disconnect'));
+      alert('ロボットに接続されました。');
+    }
+    if (message == 'robot_cannot_connect') {
+      alert('ロボットに接続出来ませんでした。シリアルポートの確認をしてください。');
+    }
+    if (message == 'robot_disconnected') {
+      $('#serial-port').prop("disabled", false);
+      buttonEnable($('#robot-connect'));
+      buttonDisable($('#robot-disconnect'));
+    }
+    if (message == 'scratch_command') {
+      json = messageData['json_data'];
+      printJSON();
+      buttonEnable($('#save-json'));
+      $('#editor').jsonEditor(json, { change: updateJSON, propertyclick: showPath });
+      $('#json-data').change(function() {
+        var val = $('#json-data').val();
+        if (val) {
+          try {
+            json = JSON.parse(val);
+          }
+          catch (e) {
+            alert('Error in parsing json. ' + e);
+          }
+        } else {
+          json = {};
+        }
+        $('#editor').jsonEditor(json, { change: updateJSON, propertyclick: showPath });
+      });
+      $('#expander').click(function() {
+        var editor = $('#editor');
+        editor.toggleClass('expanded');
+        $(this).text(editor.hasClass('expanded') ? 'Collapse' : 'Expand all');
+      });
+    }
+    if (message == 'scratch_connected') {
+      buttonDisable($('#scratch-connect'));
+      buttonEnable($('#scratch-disconnect'));
+      alert('Scratchに接続されました');
+    }
+    if (message == 'scratch_cannot_connect') {
+      alert('Scratchに接続出来ませんでした。Scratchの起動と遠隔センサーの設定の確認をしてください。');
+    }
+    if (message == 'scratch_disconnected') {
+      buttonEnable($('#scratch-connect'));
+      buttonDisable($('#scratch-disconnect'));
+    }
   }
-  console.log(button.id)
-}
 
-function OnJsonChange() {
-  ButtonEnable(document.getElementById('save_json'));
-}
+  function buttonEnable(button) {
+    button.prop("disabled", false);
+    button.prop("className", "button");
+  }
 
-function ButtonEnable(button) {
-  button.disabled = false;
-  button.className = "button";
-}
+  function buttonDisable(button) {
+    button.prop("disabled", true);
+    button.prop("className", "button-disable");
+  }
 
-function ButtonDisable(button) {
-  button.disabled = true;
-  button.className = "button_disable";
-}
+  function printJSON() {
+    $('#json-data').val(JSON.stringify(json, null, '  '));
+  }
+
+  function updateJSON(data) {
+      json = data;
+      printJSON();
+  }
+
+  function showPath(path) {
+    $('#path').text(path);
+  }
+
+})();
