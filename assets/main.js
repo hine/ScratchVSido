@@ -17,7 +17,6 @@
   };
 
   $('#robot-connect').on('click', function() {
-    console.log($('#serial-port').val());
     if ($('#serial-port').val() == '') {
       alert("シリアルポートを指定してください。");
     } else {
