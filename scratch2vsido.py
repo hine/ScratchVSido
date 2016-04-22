@@ -102,6 +102,8 @@ class Receiver(object):
                     vc.set_pwm_pulse_width(*motion_data['data'])
                 if motion_data['type'] == 'wait':
                     time.sleep(motion_data['time'] / 1000)
+                if motion_data['type'] == 'raw':
+                    vc._send_data(vc._adjust_ln_sum(motion_data['data']))
 
     def sonsor_update_handler(**sensor_data):
         for name, value in sensor_data.items():
