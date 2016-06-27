@@ -38,7 +38,7 @@ git clone -b python https://github.com/hine/ScratchVSido.git
 python scratch2vsido.py scratch_command_piccorobo.json  
 などと、対象となるロボット用のモーションを定義したjsonファイルを指定して起動させてください。  
 
-その後、そのマシンの8888ポート宛にウェブブラウザで接続\(多くの場合[標準の接続先](http://localhost:8888/)\)して、その画面からロボット並びにScratchへ接続してください。  
+その後、そのマシンの8888ポート宛にウェブブラウザで接続\(多くの場合[http://localhost:8888/](http://localhost:8888/)\)して、その画面からロボット並びにScratchへ接続してください。  
 * ロボットの接続はシリアルポートを指定してください。WindowsであればCOM3など、Mac/Linuxであれば/dev/tty.uslserialなどです。
 * Scratchに接続するボタンを押す前に、Scratchアプリケーションを立ち上げ、リモートセンサー接続を有効にしてください。
 
