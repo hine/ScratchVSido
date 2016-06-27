@@ -24,13 +24,30 @@ Windows、OS X、Ubuntuなど上のScratch1.4ならびにPython3で動作する�
 
 Scratchとの接続に自作の[pyscratchライブラリ](https://github.com/hine/pyscratch "pyscratchライブラリ")を、V-Sido CONNECT RCとの接続に同じく自作の[pyvsidoライブラリ](https://github.com/hine/pyvsido "pyvsidoライブラリ")を利用しています。  
 
-JSONのビジュアル表示にDavid Durmanさんの[FlexiJsonEditor](https://github.com/DavidDurman/FlexiJsonEditor "FlexiJsonEditor")を利用しています。  
+JSONのビジュアル表示にDavid Durmanさんの[FlexiJsonEditor](https://github.com/DavidDurman/FlexiJsonEditor "FlexiJsonEditor")を利用しています。
+
+WebUIを利用するのにTornadoライブラリを必要とします。  
+pip install Tornado  
+として、ライブラリをインストールしてください。  
 
 ## 使い方
-後日、まとめます。  
+現在メンテナンスしているのはこのpythonブランチのみですので、  
+git clone -b python https://github.com/hine/ScratchVSido.git  
+としてクローンしてください。
+
+python scratch2vsido.py scratch_command_piccorobo.json  
+などと、対象となるロボット用のモーションを定義したjsonファイルを指定して起動させてください。  
+
+その後、そのマシンの8888ポート宛にウェブブラウザで接続\(多くの場合[標準の接続先](http://localhost:8888/)\)して、その画面からロボット並びにScratchへ接続してください。  
+* ロボットの接続はシリアルポートを指定してください。WindowsであればCOM3など、Mac/Linuxであれば/dev/tty.uslserialなどです。
+* Scratchに接続するボタンを押す前に、Scratchアプリケーションを立ち上げ、リモートセンサー接続を有効にしてください。
 
 ## Scratchでの使い方
-後日、まとめます。  
+Scratchでは、リモートセンサー接続を有効にしてください。  
+
+pythonプログラムを立ち上げる際に指定したjsonファイルに書かれたモーション定義名をメッセージとして利用することでロボットへの命令を呼び出します。  
+
+scratchフォルダに幾つかのサンプルがありますので、参照してください。
 
 ## 免責事項
 一応。  
