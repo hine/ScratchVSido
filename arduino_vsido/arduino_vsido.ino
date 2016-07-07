@@ -28,8 +28,13 @@
 #define SERVO_LEFT_FOOT_TRIM -12 // 左足のサーボのトリム調整
 #define SERVO_NECK_TRIM 0 // // 首のサーボのトリム調整
 
-#define SERVO_PWM_CENTER 1500 // 180度を何uSで表現するかの調整値
-#define SERVO_PWM_RANGE 2000 // 180度を何uSで表現するかの調整値
+#define SERVO_BODY_VSIDO_SID 2 // 身体のサーボのV-Sidoにおけるsid
+#define SERVO_RIGHT_FOOT_VSIDO_SID 9 // 右足のサーボのV-Sidoにおけるsid
+#define SERVO_LEFT_FOOT_VSIDO_SID 15 // 左足のサーボのV-Sidoにおけるsid
+#define SERVO_NECK_VSIDO_SID 1 // 首のサーボのV-Sidoにおけるsid
+
+#define SERVO_PWM_CENTER 1500 // 0度を何uSで表現するかの調整値
+#define SERVO_PWM_RANGE 2000 // 180度幅を何uSで表現するかの調整値
 
 // 目のLEDのための定義
 #define NEOPIXEL_PIN 3
@@ -47,6 +52,8 @@
 #define VSIDO_OP_GET_VID_VALUE 0x67
 #define VSIDO_OP_EXTRA_COMMAND 0x78
 
+#define VSIDO_SID_MAX 254
+
 // V-Sido拡張コマンド(勝手仕様)を使用するため、このロボットの拡張IDを仮に200、コマンド番号は0番と設定
 #define VSIDO_EXTRA_ID 200
 #define VSIDO_EXTRA_LED 0
@@ -58,11 +65,13 @@ int received_length = 0;
 
 // サーボのための配列
 boolean servo_use [SERVO_NUM];
-boolean servo_changed [SERVO_NUM]; 
 float servo_trim_angle [SERVO_NUM];
 float servo_target_angle [SERVO_NUM];
 float servo_current_angle [SERVO_NUM];
 int servo_remaining_count [SERVO_NUM];
+
+// sidとサーボのピン番号との変換テーブル
+int sid_pin_translation [VSIDO_SID_MAX + 1];
 
 // サーボのインスタンス
 Servo servo[SERVO_NUM];
@@ -94,7 +103,6 @@ void setup() {
   FlexiTimer2::set(1000 / ROBOT_FPS, change_robot_state);
   FlexiTimer2::start();
 
-  delay(1000);
 }
 
 void loop() {
@@ -103,7 +111,6 @@ void loop() {
 }
 
 void change_robot_state(void) {
-  //Serial.print(".");
   change_led_state();
   change_servo_state();
 }
@@ -141,7 +148,6 @@ void init_servo(void) {
   //サーボ関連変数初期化
   for (int i = 0; i < SERVO_NUM; i++) {
     servo_use[i] = false;
-    servo_changed[i] = false;
     servo_trim_angle[i] = 0;
     servo_target_angle[i] = 0;
     servo_current_angle[i] = 0;
@@ -159,6 +165,12 @@ void init_servo(void) {
   servo_trim_angle[SERVO_LEFT_FOOT] = SERVO_LEFT_FOOT_TRIM;
   servo_trim_angle[SERVO_NECK] = SERVO_NECK_TRIM;
 
+  // sidとの変換テーブル設定
+  sid_pin_translation[SERVO_BODY_VSIDO_SID] = SERVO_BODY;
+  sid_pin_translation[SERVO_RIGHT_FOOT_VSIDO_SID] = SERVO_RIGHT_FOOT;
+  sid_pin_translation[SERVO_LEFT_FOOT_VSIDO_SID] = SERVO_LEFT_FOOT;
+  sid_pin_translation[SERVO_NECK_VSIDO_SID] = SERVO_NECK;
+
   // サーボをアタッチする
   for (int i = 0; i < SERVO_NUM; i++) {
     if (servo_use[i]) {
@@ -167,48 +179,34 @@ void init_servo(void) {
   }
 
   // サーボを初期位置に移動させる
-  servo_changed[SERVO_BODY] = true;
-  servo_changed[SERVO_RIGHT_FOOT] = true;
-  servo_changed[SERVO_LEFT_FOOT] = true;
-  servo_changed[SERVO_NECK] = true;
-  servo_remaining_count[SERVO_BODY] = 1;
-  servo_remaining_count[SERVO_RIGHT_FOOT] = 1;
-  servo_remaining_count[SERVO_LEFT_FOOT] = 1;
-  servo_remaining_count[SERVO_NECK] = 1;
+  change_servo_angle(SERVO_BODY, 0, 1);
+  change_servo_angle(SERVO_RIGHT_FOOT, 0, 1);
+  change_servo_angle(SERVO_LEFT_FOOT, 0, 1);
+  change_servo_angle(SERVO_NECK, 0, 1);
 }
 
-void change_servo_angle(int sid, float angle, int ms) {
-  servo_target_angle[sid] = angle;
-  servo_remaining_count[sid] = (int)(ms * ROBOT_FPS / 1000);
-  if (servo_remaining_count[sid] == 0) {
-    servo_remaining_count[sid] = 1;
+void change_servo_angle(int servo_id, float angle, int ms) {
+  servo_target_angle[servo_id] = angle;
+  servo_remaining_count[servo_id] = (int)(ms * ROBOT_FPS / 1000);
+  if (servo_remaining_count[servo_id] == 0) {
+    servo_remaining_count[servo_id] = 1;
   }
-  servo_changed[sid] = true;
 }
 
 void change_servo_state(void) {
   float next_angle;
   float servo_angle;
   int angle_us;
-  for (int i = 0; i < SERVO_NUM; i++) {
-    if (servo_use[i] && (servo_remaining_count[i] > 0)) {
-      next_angle = servo_current_angle[i] + ((servo_target_angle[i] - servo_current_angle[i]) / servo_remaining_count[i]);
-      servo_angle = next_angle + servo_trim_angle[i];
-      /*
-      Serial.print("sid: ");
-      Serial.print(i);
-      Serial.print(", angle: ");
-      Serial.print(next_angle);
-      */
+  for (int servo_id = 0; servo_id < SERVO_NUM; servo_id++) {
+    if (servo_use[servo_id] && (servo_remaining_count[servo_id] > 0)) {
+      digitalWrite(LED_PIN, HIGH);
+      next_angle = servo_current_angle[servo_id] + ((servo_target_angle[servo_id] - servo_current_angle[servo_id]) / servo_remaining_count[servo_id]);
+      servo_angle = next_angle + servo_trim_angle[servo_id];
       angle_us = int(SERVO_PWM_CENTER + servo_angle * SERVO_PWM_RANGE / 180);
-      /*
-      Serial.print(", angle_us: ");
-      Serial.println(angle_us);
-      */
-      servo[i].writeMicroseconds(angle_us);
-      servo_current_angle[i] = next_angle;
-      servo_remaining_count[i]--;
-      servo_changed[i] = false;
+      servo[servo_id].writeMicroseconds(angle_us);
+      servo_current_angle[servo_id] = next_angle;
+      servo_remaining_count[servo_id]--;
+      digitalWrite(LED_PIN, LOW);
     }
   }
 }
@@ -216,7 +214,19 @@ void change_servo_state(void) {
 void receive_command(void) {
   if (Serial.available() > 0) {
     received_length++;
-    received_buffer[received_length - 1] = Serial.read();
+    byte received_data = Serial.read();
+    if (received_data == VSIDO_ST) {
+      if (received_length > 1) {
+        // 2バイト目以降にVSIDO_ST(=0xff)が来た場合
+        if ((received_buffer[0] == 0x53) || (received_buffer[0] == 0x54) || (received_buffer[0] == 0x0c) || (received_buffer[0] == 0x0d)) {
+          // パススルーコマンドの場合何もしない
+        } else {
+          // パススルーじゃないのに0xffが来たらおそらく取りそこねになってると思われるので、リセットする
+          received_length = 1;
+        }
+      }
+    }
+    received_buffer[received_length - 1] = received_data;
     if (received_length >= 3) {
       int length = int(received_buffer[2]);
       if (received_length == length) {
@@ -230,13 +240,6 @@ void receive_command(void) {
 
 void parse_command(byte *buffer) {
   int length = int(buffer[2]);
-  /*
-  for (int i = 0; i < length; i++) {
-    Serial.print(buffer[i]);
-    Serial.print(' ');
-  }
-  Serial.println("");
-  */
   if (length >= 4) {
     switch (buffer[1]) {
       case VSIDO_OP_ANGLE: {
@@ -246,23 +249,15 @@ void parse_command(byte *buffer) {
         sid_num = (length - 5) / 3;
         for (int i = 0; i < sid_num; i++) {
           sid = buffer[4 + i * 3];
-          if ((sid > 0) && (sid < SERVO_NUM) && (servo_use[sid])) {
-            /*
-            servo_changed[sid] = true;
-            servo_remaining_count[sid] = buffer[length - 2];
-            if (servo_remaining_count[sid] == 0) {
-              servo_remaining_count[sid] = 1;
-            }
-            */
-            angle = parse_2bytes_data(buffer[5 + i * 3], buffer[6 + i * 3]) / 10;
+          if ((sid > 0) && (sid < VSIDO_SID_MAX) && (servo_use[sid_pin_translation[sid]])) {
+            angle = parse_2bytes_data(buffer[5 + i * 3], buffer[6 + i * 3]) / 10.0;
             if (angle < -90) {
               angle = -90;
             }
             if (angle > 90) {
               angle = 90;
             }
-            //servo_target_angle[sid] = angle;
-            change_servo_angle(sid, angle, buffer[length - 2]);
+            change_servo_angle(sid_pin_translation[sid], angle, buffer[length - 2]);
           }
         }
         send_ack();
@@ -363,9 +358,7 @@ void send_response(byte *buffer, boolean human_readable) {
       }
       Serial.println("");
     } else {
-      digitalWrite(LED_PIN, HIGH);
       Serial.write(buffer, length);
-      digitalWrite(LED_PIN, LOW);
     }
   }
 }
@@ -395,5 +388,4 @@ int convert_signed_to_unsigned(int value) {
   unsigned int return_value = value;
   return return_value;
 }
-
 
