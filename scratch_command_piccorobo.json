@@ -5,7 +5,7 @@
       "data": [
         {
           "angle": 0,
-          "sid": 7
+          "sid": 2
         }
       ],
       "time": 200,
@@ -16,7 +16,7 @@
       "data": [
         {
           "angle": 30,
-          "sid": 7
+          "sid": 2
         }
       ],
       "time": 200,
@@ -27,7 +27,7 @@
       "data": [
         {
           "angle": -30,
-          "sid": 7
+          "sid": 2
         }
       ],
       "time": 200,
@@ -38,7 +38,7 @@
       "data": [
         {
           "angle": 35,
-          "sid": 4
+          "sid": 1
         }
       ],
       "time": 200,
@@ -49,7 +49,7 @@
       "data": [
         {
           "angle": -35,
-          "sid": 4
+          "sid": 1
         }
       ],
       "time": 200,
@@ -60,7 +60,7 @@
       "data": [
         {
           "angle": 0,
-          "sid": 4
+          "sid": 1
         }
       ],
       "time": 200,
@@ -71,11 +71,11 @@
       "data": [
         {
           "angle": 13,
-          "sid": 5
+          "sid": 9
         },
         {
           "angle": 13,
-          "sid": 6
+          "sid": 15
         }
       ],
       "time": 200,
@@ -86,11 +86,11 @@
       "data": [
         {
           "angle": -13,
-          "sid": 5
+          "sid": 9
         },
         {
           "angle": -13,
-          "sid": 6
+          "sid": 15
         }
       ],
       "time": 200,
@@ -101,11 +101,11 @@
       "data": [
         {
           "angle": 0,
-          "sid": 5
+          "sid": 9
         },
         {
           "angle": 0,
-          "sid": 6
+          "sid": 15
         }
       ],
       "time": 200,
@@ -116,11 +116,11 @@
       "data": [
         {
           "angle": -10,
-          "sid": 5
+          "sid": 9
         },
         {
           "angle": 10,
-          "sid": 6
+          "sid": 15
         }
       ],
       "time": 200,
@@ -131,11 +131,11 @@
       "data": [
         {
           "angle": 0,
-          "sid": 5
+          "sid": 9
         },
         {
           "angle": 0,
-          "sid": 6
+          "sid": 15
         }
       ],
       "time": 200,
