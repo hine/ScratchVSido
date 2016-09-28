@@ -4,9 +4,11 @@
     {
       "name": "\u624b\u3092\u4e0a\u4e0b\u306b",
       "type": "motion",
+      "time": 0,
       "data": [
         {
           "type": "ik",
+          "time": 0,
           "data": [
             {
               "kdt": {
@@ -28,10 +30,12 @@
         },
         {
           "type": "wait",
-          "time": 1000
+          "time": 1000,
+          "data": 0
         },
         {
           "type": "ik",
+          "time": 0,
           "data": [
             {
               "kdt": {
@@ -56,6 +60,7 @@
     {
       "name": "\u53f3\u624b\u4e0a\u3052\u308b",
       "type": "ik",
+      "time": 0,
       "data": [
         {
           "kdt": {
@@ -70,6 +75,7 @@
     {
       "name": "\u53f3\u624b\u4e0b\u3052\u308b",
       "type": "ik",
+      "time": 0,
       "data": [
         {
           "kdt": {
@@ -84,6 +90,7 @@
     {
       "name": "\u5de6\u624b\u4e0a\u3052\u308b",
       "type": "ik",
+      "time": 0,
       "data": [
         {
           "kdt": {
@@ -98,6 +105,7 @@
     {
       "name": "\u5de6\u624b\u4e0b\u3052\u308b",
       "type": "ik",
+      "time": 0,
       "data": [
         {
           "kdt": {
@@ -112,6 +120,7 @@
     {
       "name": "\u76ee\u304c\u5149\u308b",
       "type": "gpio",
+      "time": 0,
       "data": [
         {
           "value": 1,
@@ -122,6 +131,7 @@
     {
       "name": "\u76ee\u304c\u6d88\u3048\u308b",
       "type": "gpio",
+      "time": 0,
       "data": [
         {
           "value": 0,
