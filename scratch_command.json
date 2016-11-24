@@ -1,143 +1,71 @@
 {
-  "data_set_name": "sample",
+  "data_set_name": "くまちゃんはたあげ",
   "data_set": [
     {
-      "name": "\u624b\u3092\u4e0a\u4e0b\u306b",
-      "type": "motion",
-      "time": 0,
+      "name": "ロボット：首を右に",
+      "type": "angle",
       "data": [
         {
-          "type": "ik",
-          "time": 0,
-          "data": [
-            {
-              "kdt": {
-                "x": 0,
-                "z": 99,
-                "y": 0
-              },
-              "kid": 2
-            },
-            {
-              "kdt": {
-                "x": 0,
-                "z": 99,
-                "y": 0
-              },
-              "kid": 3
-            }
-          ]
-        },
-        {
-          "type": "wait",
-          "time": 1000,
-          "data": 0
-        },
-        {
-          "type": "ik",
-          "time": 0,
-          "data": [
-            {
-              "kdt": {
-                "x": 0,
-                "z": -99,
-                "y": 0
-              },
-              "kid": 2
-            },
-            {
-              "kdt": {
-                "x": 0,
-                "z": -99,
-                "y": 0
-              },
-              "kid": 3
-            }
-          ]
+          "sid": 2,
+          "angle": -7.5
         }
-      ]
+      ],
+      "time": 500
     },
     {
-      "name": "\u53f3\u624b\u4e0a\u3052\u308b",
-      "type": "ik",
-      "time": 0,
+      "name": "ロボット：首を左に",
+      "type": "angle",
       "data": [
         {
-          "kdt": {
-            "x": 0,
-            "z": 99,
-            "y": 0
-          },
-          "kid": 2
+          "sid": 2,
+          "angle": 7.5
         }
-      ]
+      ],
+      "time": 500
     },
     {
-      "name": "\u53f3\u624b\u4e0b\u3052\u308b",
-      "type": "ik",
-      "time": 0,
+      "name": "ロボット：赤あげる",
+      "type": "angle",
       "data": [
         {
-          "kdt": {
-            "x": 0,
-            "z": -99,
-            "y": 0
-          },
-          "kid": 2
+          "sid": 4,
+          "angle": -25.0
         }
-      ]
+      ],
+      "time": 200
     },
     {
-      "name": "\u5de6\u624b\u4e0a\u3052\u308b",
-      "type": "ik",
-      "time": 0,
+      "name": "ロボット：赤さげる",
+      "type": "angle",
       "data": [
         {
-          "kdt": {
-            "x": 0,
-            "z": 99,
-            "y": 0
-          },
-          "kid": 3
+          "sid": 4,
+          "angle": -100.0
         }
-      ]
+      ],
+      "time": 200
     },
     {
-      "name": "\u5de6\u624b\u4e0b\u3052\u308b",
-      "type": "ik",
-      "time": 0,
+      "name": "ロボット：白あげる",
+      "type": "angle",
       "data": [
         {
-          "kdt": {
-            "x": 0,
-            "z": -99,
-            "y": 0
-          },
-          "kid": 3
+          "sid": 7,
+          "angle": 25.0
         }
-      ]
+      ],
+      "time": 200
     },
     {
-      "name": "\u76ee\u304c\u5149\u308b",
-      "type": "gpio",
-      "time": 0,
+      "name": "ロボット：白さげる",
+      "type": "angle",
       "data": [
         {
-          "value": 1,
-          "iid": 7
+          "sid": 7,
+          "angle": 100.0
         }
-      ]
-    },
-    {
-      "name": "\u76ee\u304c\u6d88\u3048\u308b",
-      "type": "gpio",
-      "time": 0,
-      "data": [
-        {
-          "value": 0,
-          "iid": 7
-        }
-      ]
+      ],
+      "time": 200
     }
   ]
 }

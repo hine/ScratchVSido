@@ -4,7 +4,8 @@
 [V-Sido Developerサイトの技術資料](https://v-sido-developer.com/learning/connect/connect-rc/ "V-Sido Developerサイトの技術資料")に公開されている情報を元に、個人が作成したもので、アスラテック社公式のツールではありません。  
 Scratch1.4からRemote Sensor Protocolを経由し、シリアル接続からV-Sido CONNECTをコントロールすることができます。
 
-元は[Ruby版](https://github.com/hine/ScratchVSido/tree/master "Ruby版")で書いていましたが、現在は全く仕様を変えてこのPython版のみメンテナンスしています。
+このブランチは月刊I/Oの雑誌連載記事に合わせ、コードを整理したものになります。  
+元となったブランチは[開発版](https://github.com/hine/ScratchVSido/tree/python "開発版")で開発を続けています。
 
 ## 誰が作ったの？
 アスラテック株式会社に勤務する今井大介(Daisuke IMAI)が個人として作成しました。
@@ -15,12 +16,12 @@ Scratch1.4からRemote Sensor Protocolを経由し、シリアル接続からV-S
 ## 動作環境
 Windows、OS X、Ubuntuなど上のScratch1.4ならびにPython3で動作するのではないかと思います。  
 動作確認済み環境は、  
-* OS X 10.11.1(ElCapitan) + Python3.4.3
-* Windows8.1/10 + Python3.4.3/3.5
+* OS X 10.12.1(Sierra) + Python3.5.3
+* Windows10 + Python3.5.2
 
 です。  
 
-まだ未確認ですが、RaspberryPiでも動かせるのではないかと思います。  
+RaspberryPiでも動作実績があります。  
 
 Scratchとの接続に自作の[pyscratchライブラリ](https://github.com/hine/pyscratch "pyscratchライブラリ")を、V-Sido CONNECT RCとの接続に同じく自作の[pyvsidoライブラリ](https://github.com/hine/pyvsido "pyvsidoライブラリ")を利用しています。  
 
@@ -32,11 +33,12 @@ pip install Tornado
 
 ## 使い方
 現在メンテナンスしているのはこのpythonブランチのみですので、  
-git clone -b python https://github.com/hine/ScratchVSido.git  
+git clone -b forIO https://github.com/hine/ScratchVSido.git  
 としてクローンしてください。
 
-python scratch2vsido.py scratch_command_piccorobo.json  
+python scratch2vsido.py scratch_command.json  
 などと、対象となるロボット用のモーションを定義したjsonファイルを指定して起動させてください。  
+(このブランチではモーション定義ファイルはデフォルトの1つだけとなりますので、jsonの指定は省略可です。)  
 
 その後、そのマシンの8888ポート宛にウェブブラウザで接続\(多くの場合[http://localhost:8888/](http://localhost:8888/)\)して、その画面からロボット並びにScratchへ接続してください。  
 * ロボットの接続はシリアルポートを指定してください。WindowsであればCOM3など、Mac/Linuxであれば/dev/tty.uslserialなどです。
