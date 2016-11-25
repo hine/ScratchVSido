@@ -83,51 +83,19 @@ boolean led_changed [NEOPIXEL_NUM];
 // 目のLEDのインスタンス
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NEOPIXEL_NUM, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800);
 
-void setup() {
-  // シリアル準備
-  Serial.begin(115200);
-
-  // 出力ピンの設定
-  pinMode(LED_PIN, OUTPUT);
-
-  // 目のLED初期化
-  init_eyes();
-
-  // 目を緑に光らせる
-  set_eye_color(NEOPIXEL_RIGHT_EYE, 80, 120, 20);
-  set_eye_color(NEOPIXEL_LEFT_EYE, 80, 120, 20);
-
-  // サーボ初期化
-  init_servo();
-
-  FlexiTimer2::set(1000 / ROBOT_FPS, change_robot_state);
-  FlexiTimer2::start();
-
-}
-
-void loop() {
-  receive_command();
-  delay(1);
-}
-
-void change_robot_state(void) {
-  change_led_state();
-  change_servo_state();
-}
-
-void init_eyes(void) {
-  pixels.begin();
-  for (int i = 0; i < NEOPIXEL_NUM; i++) {
-    set_eye_color(i, 0, 0, 0);
-  }
-}
-
 void set_eye_color(unsigned int led_num, byte r, byte g, byte b) {
   if (led_num < NEOPIXEL_NUM) {
     led_value[led_num][0] = r;
     led_value[led_num][1] = g;
     led_value[led_num][2] = b;
     led_changed[led_num] = true;
+  }
+}
+
+void init_eyes(void) {
+  pixels.begin();
+  for (int i = 0; i < NEOPIXEL_NUM; i++) {
+    set_eye_color(i, 0, 0, 0);
   }
 }
 
@@ -144,6 +112,16 @@ void change_led_state(void) {
     pixels.show();
   }
 }
+
+void change_servo_angle(int servo_id, float angle, int ms) {
+  servo_target_angle[servo_id] = angle;
+  servo_remaining_count[servo_id] = (int)(ms * ROBOT_FPS / 1000);
+  if (servo_remaining_count[servo_id] == 0) {
+    servo_remaining_count[servo_id] = 1;
+  }
+}
+
+
 void init_servo(void) {
   //サーボ関連変数初期化
   for (int i = 0; i < SERVO_NUM; i++) {
@@ -185,14 +163,6 @@ void init_servo(void) {
   change_servo_angle(SERVO_NECK, 0, 1);
 }
 
-void change_servo_angle(int servo_id, float angle, int ms) {
-  servo_target_angle[servo_id] = angle;
-  servo_remaining_count[servo_id] = (int)(ms * ROBOT_FPS / 1000);
-  if (servo_remaining_count[servo_id] == 0) {
-    servo_remaining_count[servo_id] = 1;
-  }
-}
-
 void change_servo_state(void) {
   float next_angle;
   float servo_angle;
@@ -211,31 +181,81 @@ void change_servo_state(void) {
   }
 }
 
-void receive_command(void) {
-  if (Serial.available() > 0) {
-    received_length++;
-    byte received_data = Serial.read();
-    if (received_data == VSIDO_ST) {
-      if (received_length > 1) {
-        // 2バイト目以降にVSIDO_ST(=0xff)が来た場合
-        if ((received_buffer[0] == 0x53) || (received_buffer[0] == 0x54) || (received_buffer[0] == 0x0c) || (received_buffer[0] == 0x0d)) {
-          // パススルーコマンドの場合何もしない
-        } else {
-          // パススルーじゃないのに0xffが来たらおそらく取りそこねになってると思われるので、リセットする
-          received_length = 1;
-        }
-      }
+byte make_checksum(byte *buffer) {
+  int length = int(buffer[2]);
+  if (length >= 4) {
+    int sum = 0;
+    for (int i = 0; i < length - 1; i++) {
+      sum ^= int(buffer[i]);
     }
-    received_buffer[received_length - 1] = received_data;
-    if (received_length >= 3) {
-      int length = int(received_buffer[2]);
-      if (received_length == length) {
-        // 受信完了
-        parse_command(received_buffer);
-        received_length = 0;
+    return byte(sum);
+  } else {
+    return byte(0);
+  }
+}
+
+int parse_2bytes_data(byte data1, byte data2) {
+  // V-Sidoの2バイトデータ処理戻しロジック
+  int code = (data2 & 0b10000000); //符号の保持
+  int tmp_data_high = (data2 >> 1) | code; // 符号を保持して右に1bitシフト
+  short tmp_data = (((tmp_data_high << 8) | data1) >> 1) | (code << 8); // 2バイトに戻して右に1bitシフト
+  return tmp_data;
+}
+
+void send_response(byte *buffer, boolean human_readable) {
+  int length = int(buffer[2]);
+  if (length >= 4) {
+    if (human_readable) {
+      for (int i = 0; i < length; i++) {
+        Serial.print(int(response_buffer[i]), HEX);
+        Serial.print(" ");
       }
+      Serial.println("");
+    } else {
+      Serial.write(buffer, length);
     }
   }
+}
+
+void send_response(byte *buffer) {
+  send_response(buffer, false);
+}
+
+void send_ack(void) {
+  response_buffer[256] = {};
+  response_buffer[0] = byte(VSIDO_ST);
+  response_buffer[1] = byte(VSIDO_OP_ACK);
+  response_buffer[2] = byte(4); // ACKのレスポンス長は4
+  response_buffer[3] = make_checksum(response_buffer);
+  send_response(response_buffer);
+}
+
+void send_vid_version(void) {
+  response_buffer[256] = {};
+  response_buffer[0] = byte(VSIDO_ST);
+  response_buffer[1] = byte(VSIDO_OP_GET_VID_VALUE);
+  response_buffer[2] = byte(5); // バージョン情報を返すレスポンス長は5
+  response_buffer[3] = byte(0xfe); // バージョン情報はマジックナンバー
+  response_buffer[4] = make_checksum(response_buffer);
+  send_response(response_buffer);
+}
+
+void send_pwm_period(void) {
+  response_buffer[256] = {};
+  response_buffer[0] = byte(VSIDO_ST);
+  response_buffer[1] = byte(VSIDO_OP_GET_VID_VALUE);
+  response_buffer[2] = byte(6); // バージョン情報を返すレスポンス長は5
+  response_buffer[3] = byte(0x00); // 1024の下位バイト
+  response_buffer[3] = byte(0x04); // 1024の上位バイト
+  response_buffer[4] = make_checksum(response_buffer);
+  send_response(response_buffer);
+}
+
+
+
+int convert_signed_to_unsigned(int value) {
+  unsigned int return_value = value;
+  return return_value;
 }
 
 void parse_command(byte *buffer) {
@@ -314,78 +334,66 @@ void parse_command(byte *buffer) {
   }
 }
 
-void send_ack(void) {
-  response_buffer[256] = {};
-  response_buffer[0] = byte(VSIDO_ST);
-  response_buffer[1] = byte(VSIDO_OP_ACK);
-  response_buffer[2] = byte(4); // ACKのレスポンス長は4
-  response_buffer[3] = make_checksum(response_buffer);
-  send_response(response_buffer);
-}
-
-void send_vid_version(void) {
-  response_buffer[256] = {};
-  response_buffer[0] = byte(VSIDO_ST);
-  response_buffer[1] = byte(VSIDO_OP_GET_VID_VALUE);
-  response_buffer[2] = byte(5); // バージョン情報を返すレスポンス長は5
-  response_buffer[3] = byte(0xfe); // バージョン情報はマジックナンバー
-  response_buffer[4] = make_checksum(response_buffer);
-  send_response(response_buffer);
-}
-
-void send_pwm_period(void) {
-  response_buffer[256] = {};
-  response_buffer[0] = byte(VSIDO_ST);
-  response_buffer[1] = byte(VSIDO_OP_GET_VID_VALUE);
-  response_buffer[2] = byte(6); // バージョン情報を返すレスポンス長は5
-  response_buffer[3] = byte(0x00); // 1024の下位バイト
-  response_buffer[3] = byte(0x04); // 1024の上位バイト
-  response_buffer[4] = make_checksum(response_buffer);
-  send_response(response_buffer);
-}
-
-void send_response(byte *buffer) {
-  send_response(buffer, false);
-}
-
-void send_response(byte *buffer, boolean human_readable) {
-  int length = int(buffer[2]);
-  if (length >= 4) {
-    if (human_readable) {
-      for (int i = 0; i < length; i++) {
-        Serial.print(int(response_buffer[i]), HEX);
-        Serial.print(" ");
+void receive_command(void) {
+  if (Serial.available() > 0) {
+    received_length++;
+    byte received_data = Serial.read();
+    if (received_data == VSIDO_ST) {
+      if (received_length > 1) {
+        // 2バイト目以降にVSIDO_ST(=0xff)が来た場合
+        if ((received_buffer[0] == 0x53) || (received_buffer[0] == 0x54) || (received_buffer[0] == 0x0c) || (received_buffer[0] == 0x0d)) {
+          // パススルーコマンドの場合何もしない
+        } else {
+          // パススルーじゃないのに0xffが来たらおそらく取りそこねになってると思われるので、リセットする
+          received_length = 1;
+        }
       }
-      Serial.println("");
-    } else {
-      Serial.write(buffer, length);
+    }
+    received_buffer[received_length - 1] = received_data;
+    if (received_length >= 3) {
+      int length = int(received_buffer[2]);
+      if (received_length == length) {
+        // 受信完了
+        parse_command(received_buffer);
+        received_length = 0;
+      }
     }
   }
 }
 
-byte make_checksum(byte *buffer) {
-  int length = int(buffer[2]);
-  if (length >= 4) {
-    int sum = 0;
-    for (int i = 0; i < length - 1; i++) {
-      sum ^= int(buffer[i]);
-    }
-    return byte(sum);
-  } else {
-    return byte(0);
-  }
+
+void change_robot_state(void) {
+  change_led_state();
+  change_servo_state();
 }
 
-int parse_2bytes_data(byte data1, byte data2) {
-  // V-Sidoの2バイトデータ処理戻しロジック
-  int code = (data2 & 0b10000000); //符号の保持
-  int tmp_data_high = (data2 >> 1) | code; // 符号を保持して右に1bitシフト
-  short tmp_data = (((tmp_data_high << 8) | data1) >> 1) | (code << 8); // 2バイトに戻して右に1bitシフト
-  return tmp_data;
+
+
+void setup() {
+  // シリアル準備
+  Serial.begin(115200);
+
+  // 出力ピンの設定
+  pinMode(LED_PIN, OUTPUT);
+
+  // 目のLED初期化
+  init_eyes();
+
+  // 目を緑に光らせる
+  set_eye_color(NEOPIXEL_RIGHT_EYE, 80, 120, 20);
+  set_eye_color(NEOPIXEL_LEFT_EYE, 80, 120, 20);
+
+  // サーボ初期化
+  init_servo();
+
+  FlexiTimer2::set(1000 / ROBOT_FPS, change_robot_state);
+  FlexiTimer2::start();
+
 }
 
-int convert_signed_to_unsigned(int value) {
-  unsigned int return_value = value;
-  return return_value;
+void loop() {
+  receive_command();
+  delay(1);
 }
+
 
